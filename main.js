@@ -1,115 +1,63 @@
 enchant();
 
-/*
- *
-	CoreObject
-	- rootScene
- *
- */
-
 window.onload = function(){
 
 	// CoreObjectの定義
-	var core = new Core(320,320);
+	var core = new Core(640,1136);
 	core.fps = 15.0;
 
-	core.preload('chara1.png');
+	core.preload('chara1.png', 'background.png');
+
 	core.onload = function(){
-		var label = new Label();
-		label.x   = 300;
-		label.y   = 5;
-		label.color = 'red';
-		label.font  = '14px Arial';
-		label.text  = '0';
-		label.on('enterframe', function(){
-			// フレームカウントアップ
-//			label.text = (core.frame/core.fps).toFixed(2);
-		});
+		// バックグランド定義
+		var bg   = new Sprite(640, 1136);
+		bg.image = core.assets['background.png'];
+		bg.x     = 0;
+		bg.y     = 0;
+		bg.frame = 0;
+		
+		// 背景のスクロール
+ 		bg.on('enterframe', function(){
+ 			this.x -= 10;
 
-		// var bear   = new Sprite(32,32);
-		// bear.image = core.assets['chara1.png'];
+ 			// 画面外に到達したら座標を調整
+ 			if(this.x <= -640){
+ 				this.x = 640;
+ 			}
+  		});
 
-		// bear.x     = 0;
-		// bear.y     = 0;
-		// bear.frame = 1;
+		// バックグランド定義
+		var bg2   = new Sprite(640, 1136);
+		bg2.image = core.assets['background.png'];
+		bg2.x     = 640;
+		bg2.y     = 0;
+		bg2.frame = 0;
+		
+		// 背景のスクロール
+ 		bg2.on('enterframe', function(){
+ 			this.x -= 10;
+ 			// 画面外に到達したら座標を調整
+ 			if(this.x <= -640){
+ 				this.x = 640;
+ 			}
+ 		});
+ 		core.rootScene.addChild(bg);
+		core.rootScene.addChild(bg2);
 
-		// // フレームアップの処理(メインループ)
-		// bear.addEventListener('enterframe', function(){
-		// 	// キー入力操作
-		// 	if(core.input.left) this.x -= 5;
-		// 	if(core.input.right) this.x += 5;
-		// 	if(core.input.up) this.y -= 5;
-		// 	if(core.input.down) this.y += 5;
+		// クマ (プレイヤーの定義)
+		var bear   = new Sprite(32,32);
+		bear.image = core.assets['chara1.png'];
+		bear.x     = 0;
+		bear.y     = 0;
+		bear.frame = 0;
 
-		// 	// intersect
-		// 	// if(this.intersect(enemy)){
-		// 	// 	label.text = 'hit'
-		// 	// }
-
-		// 	// within
-		// 	if(this.within(enemy, 10)){
-		// 		// label.text = 'hit';
-		// 		core.pushScene(gameOverScene);
-		// 		core.stop();
-		// 	}
-
-		// });
-
-		var Bear = Class.create(Sprite,{
-			initialize : function(x, y){
-				Sprite.call(this, 32, 32);
-				this.x = x;
-				this.y = y;
-				
-				this.frame   = rand(5);
-				this.opacity = rand(100)/100;
-
-				this.image = core.assets['chara1.png'];
-				this.on('enterframe', function(){
-					this.rotate(rand(10));
-				});
-
-				core.rootScene.addChild(this);
-			}
-		})
-
-		var bears = [];
-		for(var i = 0; i < 100; i++){
-			bears[i] = new Bear(10, 10+i);
-
-			console.log(i);
-		}
-
-		var enemy   = new Sprite(32,32);
-		enemy.image = core.assets['chara1.png'];
-
-		enemy.x = 80;
-		enemy.y = 0;
-		enemy.frame = 5;
-
-// 		bear.on('touchstart', function(){
-// //			core.rootScene.removeChild(this);
-// 		});
-
-		var gameOverScene = new Scene();
-		gameOverScene.backgroundColor = 'black';
-
-		core.rootScene.on('touchstart', function(e){
-			// bear.x = e.x;
-			// bear.y = e.y;
-		});
-
-//		core.rootScene.addChild(bear);
-		core.rootScene.addChild(enemy);
-		core.rootScene.addChild(label);
+		// アニメーションの定義
+ 		bear.on('enterframe', function(){
 
 
-
+ 		});
+		core.rootScene.addChild(bear);
 	}
 
 	core.start();
 };
-
-function rand(n){
-	return Math.floor(Math.random()+(n+1));
-}
