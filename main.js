@@ -21,45 +21,49 @@ window.onload = function(){
 
 		// アニメーションの定義
  		bear.on('enterframe', function(){
- 			// this.y += 5;
+ 			if(scene_status=="main"){
+	 			this.y += 5;
+	 		}
  		});
 
  		// タイムライン機能　一定間隔ごとに処理を繰り返す
 		core.rootScene.tl.then(function () {
-			// 土管オブジェクトの定義
-			var pipe   = new Sprite(64, 568);
-			pipe.image = core.assets['pipe.png'];
-			pipe.x     = window_width;
-			pipe.y     = 368;
-			pipe.frame = 0;
-			
-			// 土管の移動
-	 		pipe.on('enterframe', function(){
-	 			this.x -= 3;
-	 			// 画面外に到達したら削除する
-	 			if(this.x <= -window_width){
-	 				this.parentNode.removeChild(this);
-	 			}
-	 		});
+			if(scene_status=="main"){
+				// 土管オブジェクトの定義
+				var pipe   = new Sprite(64, 568);
+				pipe.image = core.assets['pipe.png'];
+				pipe.x     = window_width;
+				pipe.y     = 368;
+				pipe.frame = 0;
+				
+				// 土管の移動
+		 		pipe.on('enterframe', function(){
+		 			this.x -= 3;
+		 			// 画面外に到達したら削除する
+		 			if(this.x <= -window_width){
+		 				this.parentNode.removeChild(this);
+		 			}
+		 		});
 
-			// 土管オブジェクトの定義
-			var pipe2   = new Sprite(64, 568);
-			pipe2.image = core.assets['pipe.png'];
-			pipe2.x     = window_width;
-			pipe2.y     = -368;
-			pipe2.frame = 1;
-			
-			// 土管の移動
-	 		pipe2.on('enterframe', function(){
-	 			this.x -= 3;
-	 			// 画面外に到達したら削除する
-	 			if(this.x <= -window_width){
-	 				this.parentNode.removeChild(this);
-	 			}
-	 		});
+				// 土管オブジェクトの定義
+				var pipe2   = new Sprite(64, 568);
+				pipe2.image = core.assets['pipe.png'];
+				pipe2.x     = window_width;
+				pipe2.y     = -368;
+				pipe2.frame = 1;
+				
+				// 土管の移動
+		 		pipe2.on('enterframe', function(){
+		 			this.x -= 3;
+		 			// 画面外に到達したら削除する
+		 			if(this.x <= -window_width){
+		 				this.parentNode.removeChild(this);
+		 			}
+		 		});
 
-			this.addChild(pipe);
-			this.addChild(pipe2);
+				this.addChild(pipe);
+				this.addChild(pipe2);
+			}
 		}).delay(60).loop();
 
 		// バックグランド定義
@@ -81,7 +85,14 @@ window.onload = function(){
 
  		// ウィンドウ領域のタッチイベント
  		bg.on('touchstart', function(){
- 			bear.y -=80;
+	 		// 待ち状態ならゲームスタート
+	 		if(scene_status=="start"){
+	 			scene_status = scene_list[1];
+	 		}
+
+ 			if(scene_status=="main"){
+	 			bear.y -=80;
+	 		}
  		});
 
 		// バックグランド定義
@@ -102,7 +113,14 @@ window.onload = function(){
 
  		// ウィンドウ領域のタッチイベント
  		bg2.on('touchstart', function(){
- 			bear.y -=80;
+	 		// 待ち状態ならゲームスタート
+	 		if(scene_status=="start"){
+	 			scene_status = scene_list[1];
+	 		}
+
+ 			if(scene_status=="main"){
+	 			bear.y -=80;
+	 		}
  		});
 
  		core.rootScene.addChild(bg);
