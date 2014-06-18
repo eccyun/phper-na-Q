@@ -1,10 +1,19 @@
 enchant();
 
+// 関数群
+
+
+function makeRandomInt(value){
+	return Math.floor( Math.random() * value);
+}
+
+
 window.onload = function(){
 	var scene_list    = ["start", "main", "end" ];
+	var scene_status  = scene_list[0]; 
+
 	var window_width  = 320;    // ゲーム領域の幅
 	var window_height = 568;    // ゲーム領域の高さ
-	var scene_status  = scene_list[0]; 
 
 	// CoreObjectの定義
 	var core = new Core(window_width,window_height);
@@ -29,13 +38,16 @@ window.onload = function(){
  		// タイムライン機能　一定間隔ごとに処理を繰り返す
 		core.rootScene.tl.then(function () {
 			if(scene_status=="main"){
+				var base_y    = 368;
+				var decrement = makeRandomInt(150);
+
 				// 土管オブジェクトの定義
 				var pipe   = new Sprite(64, 568);
 				pipe.image = core.assets['pipe.png'];
 				pipe.x     = window_width;
-				pipe.y     = 368;
+				pipe.y     = base_y-decrement;
 				pipe.frame = 0;
-				
+
 				// 土管の移動
 		 		pipe.on('enterframe', function(){
 		 			this.x -= 3;
@@ -43,15 +55,19 @@ window.onload = function(){
 		 			if(this.x <= -window_width){
 		 				this.parentNode.removeChild(this);
 		 			}
+
+					if (bear.intersect(this)) {
+	                    core.stop();
+	                }
 		 		});
 
 				// 土管オブジェクトの定義
 				var pipe2   = new Sprite(64, 568);
 				pipe2.image = core.assets['pipe.png'];
 				pipe2.x     = window_width;
-				pipe2.y     = -368;
+				pipe2.y     = -base_y-decrement;
 				pipe2.frame = 1;
-				
+
 				// 土管の移動
 		 		pipe2.on('enterframe', function(){
 		 			this.x -= 3;
@@ -59,6 +75,10 @@ window.onload = function(){
 		 			if(this.x <= -window_width){
 		 				this.parentNode.removeChild(this);
 		 			}
+
+					if (bear.intersect(this)) {
+	                    core.stop();
+	                }
 		 		});
 
 				this.addChild(pipe);
@@ -83,18 +103,6 @@ window.onload = function(){
  			}
   		});
 
- 		// ウィンドウ領域のタッチイベント
- 		bg.on('touchstart', function(){
-	 		// 待ち状態ならゲームスタート
-	 		if(scene_status=="start"){
-	 			scene_status = scene_list[1];
-	 		}
-
- 			if(scene_status=="main"){
-	 			bear.y -=80;
-	 		}
- 		});
-
 		// バックグランド定義
 		var bg2   = new Sprite(window_width, window_height);
 		bg2.image = core.assets['background-2.png'];
@@ -111,8 +119,9 @@ window.onload = function(){
  			}
  		});
 
- 		// ウィンドウ領域のタッチイベント
- 		bg2.on('touchstart', function(){
+
+ 		// メインシーンのイベント定義
+		core.rootScene.on('touchstart', function(){
 	 		// 待ち状態ならゲームスタート
 	 		if(scene_status=="start"){
 	 			scene_status = scene_list[1];
