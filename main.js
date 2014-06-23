@@ -26,13 +26,19 @@ window.onload = function(){
 		bear.x     = (window_width/2)-(32/2);
 		bear.y     = (window_height/2)-(32/2);
 		bear.frame = 5;
-
 		// アニメーションの定義
  		bear.on('enterframe', function(){
  			if(scene_status=="main"){
 	 			this.y += 5;
 	 		}
  		});
+
+ 		// ゲームスタートのバナー定義
+ 		var status_banner   = new Sprite(200, 60);
+		status_banner.image = core.assets['./images/status_banner.png'];
+		status_banner.x     = (window_width/2)-(200/2);
+		status_banner.y     = (window_height/2)-(60/2);
+		status_banner.frame = 1;
 
  		// タイムライン機能　一定間隔ごとに処理を繰り返す
 		core.rootScene.tl.then(function () {
@@ -56,7 +62,10 @@ window.onload = function(){
 		 			}
 
 					if (bear.intersect(this)) {
-	                    core.stop();
+			 			scene_status        = scene_list[2];
+			 			status_banner.frame = 0;
+			 			this.parentNode.removeChild(bear);
+			 			this.parentNode.addChild(status_banner);
 	                }
 		 		});
 
@@ -76,7 +85,10 @@ window.onload = function(){
 		 			}
 
 					if (bear.intersect(this)) {
-	                    core.stop();
+			 			scene_status        = scene_list[2];
+			 			status_banner.frame = 0;
+			 			this.parentNode.removeChild(bear);
+			 			this.parentNode.addChild(status_banner);
 	                }
 		 		});
 
@@ -101,14 +113,6 @@ window.onload = function(){
  				this.x = window_width;
  			}
   		});
-
- 		// ゲームスタートのバナー定義
- 		var status_banner   = new Sprite(200, 60);
-		status_banner.image = core.assets['./images/status_banner.png'];
-		status_banner.x     = (window_width/2)-(200/2);
-		status_banner.y     = (window_height/2)-(60/2);
-		status_banner.frame = 1;
-
 
 		// バックグランド定義
 		var bg2   = new Sprite(window_width, window_height);
