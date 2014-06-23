@@ -17,7 +17,7 @@ window.onload = function(){
 	// CoreObjectの定義
 	var core = new Core(window_width,window_height);
 	core.fps = 30.0;
-	core.preload('./images/chara1.png', './images/background.png', './images/pipe.png');
+	core.preload('./images/chara1.png', './images/background.png', './images/pipe.png','./images/status_banner.png');
 
 	core.onload = function(){
 		// クマ (プレイヤーの定義)
@@ -102,6 +102,14 @@ window.onload = function(){
  			}
   		});
 
+ 		// ゲームスタートのバナー定義
+ 		var status_banner   = new Sprite(200, 60);
+		status_banner.image = core.assets['./images/status_banner.png'];
+		status_banner.x     = (window_width/2)-(200/2);
+		status_banner.y     = (window_height/2)-(60/2);
+		status_banner.frame = 1;
+
+
 		// バックグランド定義
 		var bg2   = new Sprite(window_width, window_height);
 		bg2.image = core.assets['./images/background.png'];
@@ -121,19 +129,21 @@ window.onload = function(){
 
  		// メインシーンのイベント定義
 		core.rootScene.on('touchstart', function(){
+ 			if(scene_status=="main"){
+	 			bear.y -=80;
+	 		}
+
 	 		// 待ち状態ならゲームスタート
 	 		if(scene_status=="start"){
 	 			scene_status = scene_list[1];
-	 		}
-
- 			if(scene_status=="main"){
-	 			bear.y -=80;
+				core.rootScene.removeChild(status_banner);
+				core.rootScene.addChild(bear);
 	 		}
  		});
 
  		core.rootScene.addChild(bg);
 		core.rootScene.addChild(bg2);
-		core.rootScene.addChild(bear);
+		core.rootScene.addChild(status_banner);
 	}
 
 	core.start();
