@@ -10,7 +10,7 @@ function makeRandomInt(value){
 window.onload = function(){
 	var scene_list    = ["start", "main", "end" ];
 	var scene_status  = scene_list[0]; 
-
+	var game_score    = 0;
 	var window_width  = 320;    // ゲーム領域の幅
 	var window_height = 568;    // ゲーム領域の高さ
 
@@ -26,24 +26,25 @@ window.onload = function(){
 		bear.x     = (window_width/2)-(32/2);
 		bear.y     = (window_height/2)-(32/2);
 		bear.frame = 5;
-		// アニメーションの定義
- 		bear.on('enterframe', function(){
- 			if(scene_status=="main"){
-	 			this.y += 5;
-	 		}
- 		});
 
  		// ゲームスタートのバナー定義
  		var status_banner   = new Sprite(200, 60);
 		status_banner.image = core.assets['./images/status_banner.png'];
 		status_banner.x     = (window_width/2)-(200/2);
-		status_banner.y     = (window_height/2)-(60/2);
+		status_banner.y     = (window_height/2)-120;
 		status_banner.frame = 1;
+
+		// スコア表示用のラベル
+		var score_label   = new Label(String(game_score));
+		score_label.x     = (window_width/2)-(score_label._boundWidth/2);
+		score_label.y     = (window_height/2)-120;
+		score_label.color = '#ffffff';
 
  		// タイムライン機能　一定間隔ごとに処理を繰り返す
 		core.rootScene.tl.then(function () {
 			if(scene_status=="main"){
-				var base_y    = 368;
+//				var base_y    = 368;
+				var base_y    = 338;
 				var decrement = makeRandomInt(150);
 
 				// 土管オブジェクトの定義
@@ -66,6 +67,14 @@ window.onload = function(){
 			 			status_banner.frame = 0;
 			 			this.parentNode.removeChild(bear);
 			 			this.parentNode.addChild(status_banner);
+
+						score_label.y = (window_height/2);
+	                }
+
+	                // 土管通過後
+	                if((this.x == (window_width/2)-(pipe.width/2)) && scene_status=="main"){
+	                	game_score       = game_score+1;
+	                	score_label.text = String(game_score);
 	                }
 		 		});
 
@@ -89,13 +98,36 @@ window.onload = function(){
 			 			status_banner.frame = 0;
 			 			this.parentNode.removeChild(bear);
 			 			this.parentNode.addChild(status_banner);
+
+						score_label.y = (window_height/2);
 	                }
 		 		});
 
 				this.addChild(pipe);
 				this.addChild(pipe2);
+				this.addChild(score_label);
 			}
 		}).delay(60).loop();
+
+ 		// メインシーンのイベント定義
+		core.rootScene.on('enterframe', function(){
+ 			if(scene_status=="main"){
+	 			if(core.input.up){
+		 			bear.y -= 5;
+	 			}else if (core.input.down){
+		 			bear.y += 5;
+	 			}
+	 		}
+
+	 		// 待ち状態にキー入力があったらゲームスタート
+	 		if(scene_status=="start"){
+	 			if(core.input.up||core.input.down){
+		 			scene_status = scene_list[1];
+					core.rootScene.removeChild(status_banner);
+					core.rootScene.addChild(score_label);
+	 			}
+	 		}
+ 		});
 
 		// バックグランド定義
 		var bg   = new Sprite(window_width, window_height);
@@ -130,24 +162,10 @@ window.onload = function(){
  			}
  		});
 
-
- 		// メインシーンのイベント定義
-		core.rootScene.on('touchstart', function(){
- 			if(scene_status=="main"){
-	 			bear.y -=80;
-	 		}
-
-	 		// 待ち状態ならゲームスタート
-	 		if(scene_status=="start"){
-	 			scene_status = scene_list[1];
-				core.rootScene.removeChild(status_banner);
-				core.rootScene.addChild(bear);
-	 		}
- 		});
-
  		core.rootScene.addChild(bg);
 		core.rootScene.addChild(bg2);
 		core.rootScene.addChild(status_banner);
+		core.rootScene.addChild(bear);
 	}
 
 	core.start();
