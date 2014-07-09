@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>ぺちぱな。Q 〜たまには決められた通りに繰り返すのもいい〜</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <style>
+            body {
+                padding-top: 50px;
+                padding-bottom: 20px;
+            }
+        </style>
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="js/vendor/prettify/prettify.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src="js/vendor/jquery-1.10.1.min.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/jquery.easing.1.3.js"></script>
+        <script src="js/vendor/prettify/prettify.js"></script>
+    </head>
+
+    <body onload="prettyPrint();">
+        <div id="my_top" class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-header">
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-3 sidebar">
+                    <ul class="nav nav-sidebar">
+                        <li>
+                            <a href="javascript:smoothScroll('1_0');" style="color : black;">
+                                はじめに
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:smoothScroll('1_1');">
+                                配布資料の確認
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:smoothScroll('1_2');">
+                                コンピュータゲームの歴史
+                            </a>
+                        </li>
+
+
+                        <li>
+                            <a href="javascript:smoothScroll('1_3');">
+                                enchant.js&nbsp;とは
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:smoothScroll('1_4');">
+                                サンプルを動かしてみる
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-9 col-sm-offset-3 ">
+                    <div class="page-header">
+                        <h1>ぺちぱな。Q <small>〜たまには決められた通りに繰り返すのもいい〜</small></h1>
+                    </div>
+
+                    <div class="section_block">
+                        <div class="page-header">
+                            <h1 id="1_0">はじめに</h1>
+                        </div>
+
+                        <!-- exam_content -->
+                        <div class="exam_content">
+                            <a href="javascript:smoothScroll('my_top');">
+                                ↑トップへ戻る
+                            </a>
+
+                            <div class="exam_description">
+                                <p>
+                                    おはようございます！<b>「ぺちぱな。Q 〜たまには決められた通りに繰り返すのもいい〜」</b>へようこそ！<br />
+                                    今回のハンズオンはenchant.jsと言うJavaScriptライブラリを使って<b>「ゲームがどのような仕組みで動いているのか」</b>をテーマに行います！<br />
+                                    用意はよろしいですか？それでは、張り切ってまいりましょう！どうぞ！
+                                </p>
+                            </div>
+
+                            <div class="exam_inline">
+                                <h3 id="1_1">配布資料の確認</h3>
+
+                                <div class="exam_description">
+                                    <p>
+                                        まず、はじめに本日のハンズオンの配布資料を確認します。<br />
+                                        とは言っても、全部を説明するわけではなくて主要となるファイルにフォーカスをあてて紹介したいと思います！
+                                    </p>
+                                </div>
+
+                                <ul>
+                                    <li>
+                                        <dl>
+                                            <dt>index.html</dt>
+                                            <dd style="margin-top : 5px;">
+                                                <p>
+                                                    みなさまが、今開いているガイドブックです。<br />ここのファイルに手を加えていくことは今回はありません〜。
+                                                </p>
+                                            </dd>
+                                        </dl>
+                                    </li>
+
+                                    <li>
+                                        <dl>
+                                            <dt>cook/</dt>
+                                            <dd style="margin-top : 5px;">
+                                                <p>
+                                                    本日のハンズオンでみなさまに編集していただくファイルや<br />サンプルのプログラムがまとめてこのフォルダに入っています。
+                                                </p>
+                                            </dd>
+                                        </dl>
+                                    </li>
+
+                                    <li>
+                                        <dl>
+                                            <dt>cook/chapter2/<br />cook/chapter3</dt>
+                                            <dd style="margin-top : 5px;">
+                                                <p>
+                                                    本日のハンズオンでは章構成のようになっております。<br />chapter2ではツイートを。chapter3ではリプライを取り上げます。<br />各章で利用するプログラムはこの中に全て格納されています！
+                                                </p>
+                                            </dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- inline -->
+                            <div class="exam_inline">
+                                <h3 id="1_2">コンピュータゲームの歴史</h3>
+                                <div class="well exam_margin">
+                                    <h5>1840年代</h5>
+                                    <i>
+                                        イギリスの数学者チャールズ・バベッジは、機械にゲームを行わせることに興味を持ち、解析エンジン（コンピュータ）を考えた。ただし、チェスの場合は組合せが膨大になることから成功しなかった。
+                                    </i>
+
+                                    <h5>1983年</h5>
+                                    <i>
+                                        7月15日 - 任天堂「ファミリーコンピュータ」（ファミコン）
+                                    </i>
+
+                                    <h5>1994年</h5>
+                                    <i>
+                                        11月22日 - セガ「セガサターン」。同時発売としてビクターVサターン・日立Hiサターンがある。
+                                    </i>
+
+                                    <div class="quote">
+                                        Wikipedia - <a href="http://ja.wikipedia.org/wiki/%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%AE%E6%AD%B4%E5%8F%B2">コンピュータゲームの歴史</a> より
+                                    </div>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        コンピュータゲームの歴史を紐解いてみると、はじまりはなんと1840年頃からで今日までで170年ほどの歴史があります。<br />
+                                        僕の家にはじめてやってきたゲーム機はファミコンでした。何年も先の話です。スーパーマリオブラザーズばっかり遊んでいました。<br /><br />
+                                        それが、時が経ってセガサターンやプレイステーションが登場し、2Dのものから奥行きのある3Dのゲームが家庭用ゲーム機にも登場してきて、グラフィック・演出も格段にパワーアップしました。<b>「実写のようだな」「とんでもない事が起きてしまった」</b>と当時思ったりしていました。<br /><br />
+                                        そんな事がゲーム機の世代が変わる度に起こるとは予想も出来ず、大人になった今でも次世代機が発表される度に・新しいゲームが発表される度にわくわくするとは思ってもいませんでした。
+                                    </p>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <!-- exam_content -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function smoothScroll(node){
+                var pos = $( "#"+node).position();
+                $('html,body').animate({ scrollTop: pos.top-60}, 1000, 'easeOutQuad');
+            }
+        </script>
+    </body>
+</html>
