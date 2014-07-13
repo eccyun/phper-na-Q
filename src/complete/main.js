@@ -20,7 +20,7 @@ window.onload = function(){
 	core.preload('./libs/images/chara1.png', './libs/images/background.png', './libs/images/pipe.png','./libs/images/status_banner.png');
 
 	core.onload = function(){
-		// クマ (プレイヤーの定義)
+		// プレイヤーの定義
 		var bear   = new Sprite(32,32);
 		bear.image = core.assets['./libs/images/chara1.png'];
 		bear.x     = (window_width/2)-(32/2);
