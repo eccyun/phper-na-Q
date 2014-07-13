@@ -69,6 +69,37 @@
                                 サンプルを動かしてみる
                             </a>
                         </li>
+
+                       <li>
+                            <a href="javascript:smoothScroll('2_0');" style="color : black;">
+                                2. 基本的な仕組み&nbsp;〜自機を動かしてみよう〜
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:smoothScroll('2_1');">
+                                ゲームプログラムはパラパラ漫画のように
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:smoothScroll('2_2');">
+                                enchant.jsのセットアップ
+                            </a>
+                        </li>
+
+
+                        <li>
+                            <a href="javascript:smoothScroll('2_3');">
+                                enchant.js&nbsp;とは
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:smoothScroll('2_4');">
+                                サンプルを動かしてみる
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
@@ -278,10 +309,9 @@
                         <!-- exam_content -->
                     </div>
 
-
                     <div class="section_block">
                         <div class="page-header">
-                            <h1 id="2_0">2. はじめに</h1>
+                            <h1 id="2_0">2. 基本的な仕組み&nbsp;〜自機を動かしてみよう〜</h1>
                         </div>
 
                         <!-- exam_content -->
@@ -292,58 +322,59 @@
 
                             <div class="exam_description">
                                 <p>
-                                    おはようございます！<b>「ぺちぱな。Q 〜たまには決められた通りに繰り返すのもいい〜」</b>へようこそ！<br />
-                                    今回のハンズオンはenchant.jsと言うJavaScriptライブラリを使って<b>「ゲームがどのような仕組みで動いているのか」</b>をテーマに行います！<br />
-                                    用意はよろしいですか？それでは、張り切ってまいりましょう！どうぞ！
+                                    ここでは、実際にキャラクターを操作するプログラムを書いて、ゲームがどのようにして動いているのかを見ていきたいと思います。
                                 </p>
                             </div>
 
+                            <!-- inline -->
                             <div class="exam_inline">
-                                <h3 id="1_1">配布資料の確認</h3>
+                                <h3 id="2_1">ゲームプログラムはパラパラ漫画のように</h3>
 
                                 <div class="exam_description">
                                     <p>
-                                        まず、はじめに本日のハンズオンの配布資料を確認します。<br />
-                                        とは言っても、全部を説明するわけではなくて主要となるファイルにフォーカスをあてて紹介したいと思います！
+                                        ゲームプログラムの仕組みをざっくりと別の何かに例えると、<b>ページがどこまでも続くパラパラ漫画</b>に例えることが出来ます。
                                     </p>
                                 </div>
 
-                                <ul>
-                                    <li>
-                                        <dl>
-                                            <dt>index.html</dt>
-                                            <dd style="margin-top : 5px;">
-                                                <p>
-                                                    みなさまが、今開いているガイドブックです。<br />ここのファイルに手を加えていくことは今回はありません〜。
-                                                </p>
-                                            </dd>
-                                        </dl>
-                                    </li>
+                                <div class="exam_description">
+                                    <p>
+                                        <div class="align_center">
+                                            <img src="./img/palapala.jpg" class="img-thumbnail img-responsive" alt="enchant.js">
+                                            <h5>Wikipedia - パラパラ漫画より</h5>
+                                        </div>
+                                    </p>
+                                </div>
 
-                                    <li>
-                                        <dl>
-                                            <dt>cook/</dt>
-                                            <dd style="margin-top : 5px;">
-                                                <p>
-                                                    本日のハンズオンでみなさまに編集していただくファイルや<br />サンプルのプログラムがまとめてこのフォルダに入っています。
-                                                </p>
-                                            </dd>
-                                        </dl>
-                                    </li>
-
-                                    <li>
-                                        <dl>
-                                            <dt>cook/chapter2/<br />cook/chapter3</dt>
-                                            <dd style="margin-top : 5px;">
-                                                <p>
-                                                    本日のハンズオンでは章構成のようになっております。<br />chapter2ではツイートを。chapter3ではリプライを取り上げます。<br />各章で利用するプログラムはこの中に全て格納されています！
-                                                </p>
-                                            </dd>
-                                        </dl>
-                                    </li>
-                                </ul>
+                                <div class="exam_description">
+                                    <p>
+                                        ゲームのプログラムはパラパラ漫画のように絶えず画面が更新される仕組みとなっており、この中で事前に組み込んだプログラムが決められた通りに動いていきます。<br />
+                                        ユーザーのキー操作・時間の経過などを定義する事によって、ページがめくられる度に画面の情報が更新されていくイメージになります。<br />
+                                        とは言っても、これだけではピンと来ないところもあるかもしれません。<br />
+                                        そこで、実際にキャラクターを操作するプログラムを作りながら、より詳しく紹介したいと思います。
+                                    </p>
+                                </div>
                             </div>
 
+                            <!-- inline -->
+                            <div class="exam_inline">
+                                <h3 id="2_2">enchant.jsのセットアップ</h3>
+
+                                <div class="exam_description">
+                                    <p>
+                                        enchant.jsを使ったゲーム開発をはじめるにあたってenchant.jsのセットアップを行います。<br />
+                                        本項では既に用意されたものを使って、セットアップにあたってどういった記述が必要なのか要点をかいつまんで紹介します。
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        ゲームのプログラムはパラパラ漫画のように絶えず画面が更新される仕組みとなっており、この中で事前に組み込んだプログラムが決められた通りに動いていきます。<br />
+                                        ユーザーのキー操作・時間の経過などを定義する事によって、ページがめくられる度に画面の情報が更新されていくイメージになります。<br />
+                                        とは言っても、これだけではピンと来ないところもあるかもしれません。<br />
+                                        そこで、実際にキャラクターを操作するプログラムを作りながら、より詳しく紹介したいと思います。
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                         <!-- exam_content -->
                     </div>

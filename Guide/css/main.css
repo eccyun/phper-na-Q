@@ -91,3 +91,7 @@ p{
 	padding-top    : 15px;
 	padding-bottom : 10px;
 }
+
+.align_center{
+	text-align : center;
+}
