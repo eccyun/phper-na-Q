@@ -119,6 +119,7 @@
                                 ↑トップへ戻る
                             </a>
 
+                            <!-- 序文 -->
                             <div class="exam_description">
                                 <p>
                                     おはようございます！<b>「ぺちぱな。Q 〜たまには決められた通りに繰り返すのもいい〜」</b>へようこそ！<br />
@@ -127,6 +128,7 @@
                                 </p>
                             </div>
 
+                            <!-- 配布資料の確認 -->
                             <div class="exam_inline">
                                 <h3 id="1_1">配布資料の確認</h3>
 
@@ -173,7 +175,7 @@
                                 </ul>
                             </div>
 
-                            <!-- inline -->
+                            <!-- コンピュータゲームの歴史 -->
                             <div class="exam_inline">
                                 <h3 id="1_2">コンピュータゲームの歴史</h3>
                                 <div class="well exam_margin">
@@ -210,7 +212,7 @@
                                 </div>
                             </div>
 
-                            <!-- inline -->
+                            <!-- enchant.js&nbsp;とは -->
                             <div class="exam_inline">
                                 <h3 id="1_3">enchant.js&nbsp;とは</h3>
 
@@ -282,7 +284,7 @@
                                 </div>
                             </div>
 
-                            <!-- inline -->
+                            <!-- サンプルを動かしてみる -->
                             <div class="exam_inline">
                                 <h3 id="1_4">サンプルを動かしてみよう</h3>
                                 <div class="exam_description">
@@ -326,7 +328,7 @@
                                 </p>
                             </div>
 
-                            <!-- inline -->
+                            <!-- ゲームプログラムはパラパラ漫画のように -->
                             <div class="exam_inline">
                                 <h3 id="2_1">ゲームプログラムはパラパラ漫画のように</h3>
 
@@ -355,23 +357,100 @@
                                 </div>
                             </div>
 
-                            <!-- inline -->
+                            <!-- enchant.jsのセットアップ -->
                             <div class="exam_inline">
                                 <h3 id="2_2">enchant.jsのセットアップ</h3>
 
                                 <div class="exam_description">
                                     <p>
                                         enchant.jsを使ったゲーム開発をはじめるにあたってenchant.jsのセットアップを行います。<br />
-                                        本項では既に用意されたものを使って、セットアップにあたってどういった記述が必要なのか要点をかいつまんで紹介します。
+                                        本項では既に用意されたものを使って、セットアップにあたってどういった記述が必要なのか要点をかいつまんで紹介します。<br /><br />
+
+                                        みなさまに編集していただくソースファイルは、下記ディレクトリに保管されています。<br />
+                                        これらをもとに簡単な紹介を行いますので、こちらのプログラムをお好みのテキストエディタで開いてからご確認ください。
+                                    </p>
+                                </div>
+
+                                <ul>
+                                    <li>
+                                        <dl>
+                                            <dt><a href="../src/edit/index.html" target="_blank">~/src/edit/index.html</a></dt>
+                                            <dd style="margin-top : 5px;">
+                                                <p>
+                                                    開発したゲームが実行されるページのファイルとなります。<br />
+                                                    こちらはテキストエディタと合わせてブラウザでもファイル名のリンクから確認してみましょう！
+                                                </p>
+                                            </dd>
+                                        </dl>
+                                    </li>
+
+                                    <li>
+                                        <dl>
+                                            <dt>~/src/edit/main.js/</dt>
+                                            <dd style="margin-top : 5px;">
+                                                <p>
+                                                    ゲームの実行にあたって、必要な処理はこちらに書いていきます。<br />
+                                                    今回のハンズオンでも実際に編集するファイルはこちらのみとなっております。
+                                                </p>
+                                            </dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+
+                                <div class="exam_description">
+                                    <p>
+                                        みなさま、お好みのテキストエディタでソースファイルを開いていただけたでしょうか？<br />
+                                        ~/src/edit/index.htmlのプログラムをブラウザ上で確認すると、以下のような画面が表示されます。
                                     </p>
                                 </div>
 
                                 <div class="exam_description">
                                     <p>
-                                        ゲームのプログラムはパラパラ漫画のように絶えず画面が更新される仕組みとなっており、この中で事前に組み込んだプログラムが決められた通りに動いていきます。<br />
-                                        ユーザーのキー操作・時間の経過などを定義する事によって、ページがめくられる度に画面の情報が更新されていくイメージになります。<br />
-                                        とは言っても、これだけではピンと来ないところもあるかもしれません。<br />
-                                        そこで、実際にキャラクターを操作するプログラムを作りながら、より詳しく紹介したいと思います。
+                                        <div class="align_center">
+                                            <img src="./img/2-1.png" class="img-thumbnail img-responsive" alt="enchant.js">
+                                            <h5>So Spacy!</h5>
+                                        </div>
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        宇宙空間を背景にしろくまが駆け抜けると言うなかなかに<b>スペイシー</b>な画面が表示されるかと思います、いかがでしょうか。<br />
+                                        今回のハンズオンではこちらのプログラムを拡張していきながら作り進めていきます。<br />
+                                        まずはじめにenchant.jsで作ったゲームを動かすにあたって、どのような準備が必要なのかを紹介します。
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <h4>../src/edit/index.html</h4>
+                                    <pre class="prettyprint lang-html linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta http-equiv="x-ua-compatible" content="IE=Edge"&gt;
+    &lt;meta name="viewport" content="width=device-width, user-scalable=no"&gt;
+    &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
+    &lt;script type="text/javascript" src="./libs/enchant.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="main.js"&gt;&lt;/script&gt;
+    &lt;style type="text/css"&gt;
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        enchant.jsではページを表示するindex.htmlに対して、処理を書く事は基本的にありません。<br />
+                                        ソースコード上の8行目と9行目で呼び出されている外部JavaScriptファイルの呼び出しが肝の部分になっています。<br /><br />
+                                        こちらでenchant.jsの機能を呼び出す為の準備を行っていて、処理自体はmain.jsに書いていく事になります。<br />
+                                        main.jsで書かれた処理をもとにして、ページ上でゲームが実行される仕組みとなります。
                                     </p>
                                 </div>
                             </div>
