@@ -66,7 +66,7 @@
 
                         <li>
                             <a href="javascript:smoothScroll('1_4');">
-                                サンプルを動かしてみる
+                                サンプルを動かしてみよう
                             </a>
                         </li>
 
@@ -91,13 +91,13 @@
 
                         <li>
                             <a href="javascript:smoothScroll('2_3');">
-                                enchant.js&nbsp;とは
+                                前準備はクラスの定義から
                             </a>
                         </li>
 
                         <li>
                             <a href="javascript:smoothScroll('2_4');">
-                                サンプルを動かしてみる
+                                メインループの基本処理
                             </a>
                         </li>
                     </ul>
@@ -349,9 +349,8 @@
 
                                 <div class="exam_description">
                                     <p>
-                                        ゲームのプログラムはパラパラ漫画のように絶えず画面が更新される仕組みとなっており、この中で事前に組み込んだプログラムが決められた通りに動いていきます。<br />
-                                        ユーザーのキー操作・時間の経過などを定義する事によって、ページがめくられる度に画面の情報が更新されていくイメージになります。<br />
-                                        とは言っても、これだけではピンと来ないところもあるかもしれません。<br />
+                                        ゲームのプログラムはパラパラ漫画のように絶えず画面が更新される仕組みとなっており、この中で事前に組み込んだプログラムが決められた通りに動いていきます。このような仕組みの事をプログラム的に<b>メインループ</b>と呼んでいます。<br />
+                                        メインループ上にユーザーのキー操作・時間の経過などを定義する事によって、ページがめくられる度に画面の情報が更新されていくイメージになります。そうとは言っても、これだけではピンと来ないところもあるかもしれません。<br />
                                         そこで、実際にキャラクターを操作するプログラムを作りながら、より詳しく紹介したいと思います。
                                     </p>
                                 </div>
@@ -408,15 +407,15 @@
                                     <p>
                                         <div class="align_center">
                                             <img src="./img/2-1.png" class="img-thumbnail img-responsive" alt="enchant.js">
-                                            <h5>So Spacy!</h5>
+                                            <h5>So Spacy!(とても、宇宙的...)</h5>
                                         </div>
                                     </p>
                                 </div>
 
                                 <div class="exam_description">
                                     <p>
-                                        宇宙空間を背景にしろくまが駆け抜けると言うなかなかに<b>スペイシー</b>な画面が表示されるかと思います、いかがでしょうか。<br />
-                                        今回のハンズオンではこちらのプログラムを拡張していきながら作り進めていきます。<br />
+                                        宇宙空間を背景に野生のくまが駆け抜けると言うなかなかに<b>スペイシー</b>な画面が表示されるかと思います、いかがでしょうか。<br />
+                                        今回のハンズオンではこちらのプログラムを拡張していきながら、ゲームがどのようにして動いているのか紹介します。<br />
                                         まずはじめにenchant.jsで作ったゲームを動かすにあたって、どのような準備が必要なのかを紹介します。
                                     </p>
                                 </div>
@@ -450,10 +449,188 @@
                                         enchant.jsではページを表示するindex.htmlに対して、処理を書く事は基本的にありません。<br />
                                         ソースコード上の8行目と9行目で呼び出されている外部JavaScriptファイルの呼び出しが肝の部分になっています。<br /><br />
                                         こちらでenchant.jsの機能を呼び出す為の準備を行っていて、処理自体はmain.jsに書いていく事になります。<br />
-                                        main.jsで書かれた処理をもとにして、ページ上でゲームが実行される仕組みとなります。
+                                        main.jsで書かれた処理をもとにして、ページ上でゲームが実行される仕組みとなります。<br /><br />
+                                    </p>
+                                </div>
+
+
+                                <div class="exam_description">
+                                    <h4>~/src/edit/main.js</h4>
+                                    <pre class="prettyprint lang-js linenums">
+enchant();  // enchant.jsの利用宣言　必ず最初に宣言する
+
+window.onload = function(){
+    var game_score    = 0;
+    var window_width  = 320;    // ゲーム領域の幅
+    var window_height = 568;    // ゲーム領域の高さ
+
+    // CoreObjectの定義
+    var core = new Core(window_width,window_height);
+    core.fps = 30.0;
+    core.preload('./libs/images/chara1.png', 
+                 './libs/images/background.png',
+                 './libs/images/pipe.png',
+                 './libs/images/status_banner.png');
+
+    core.onload = function(){
+        // クマ (プレイヤーの定義)
+        var bear   = new Sprite(32,32);                         // 画像描画開始の宣言
+        bear.image = core.assets['./libs/images/chara1.png'];   // 描画する画像を指定する
+        bear.x     = (window_width/2)-(32/2);                   // 画像の描画位置の指定(x軸)
+        bear.y     = (window_height/2)-(32/2);                  // 画像の描画位置の指定(軸)
+
+        /* 
+            背景のスクロール処理(非表示にしています...)
+        */
+
+        // 定義した画像を、事前に描画する
+        core.rootScene.addChild(bear);
+
+        // メインループ
+        core.on('enterframe', function(){
+            // この中に処理を書いていきます
+        });
+    }
+
+    core.start();
+};
+
+...</pre>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        おっとっと、いきなりのプログラムになんだか目眩が・・・。enchant.jsはコードの頭で<b>enchant();</b>を呼び出す事ではじめて使えるようになります。ちょっと面食らう部分もあるかもしれませんが、今回の進行上で重要な部分だけをピックアップしてここでは紹介したいと思います。
                                     </p>
                                 </div>
                             </div>
+
+                            <!-- 前準備はクラスの定義から -->
+                            <div class="exam_inline">
+                                <h3 id="2_3">前準備はクラスの定義から</h3>
+                                <div class="exam_description">
+                                    <h4>~/src/edit/main.js</h4>
+                                    <pre class="prettyprint lang-js linenums">
+enchant();  // enchant.jsの利用宣言　必ず最初に宣言する
+
+window.onload = function(){
+    var game_score    = 0;
+    var window_width  = 320;    // ゲーム領域の幅
+    var window_height = 568;    // ゲーム領域の高さ
+
+    // CoreObjectの定義
+    var core = new Core(window_width,window_height);
+    core.fps = 30.0;
+    core.preload('./libs/images/chara1.png', 
+                 './libs/images/background.png',
+                 './libs/images/pipe.png',
+                 './libs/images/status_banner.png');
+
+... 途中省略 ...
+</pre>
+                                </div>
+
+
+                                <div class="exam_description">
+                                    <p>
+                                        JavaScriptでは<b>window.onload = function(){}</b>の<b>{}</b>で囲われた領域のプログラムが画面読み込み時に実行されます。<br />
+                                        ここでは<b>9行目</b>でenchant.jsが提供している、Coreクラスのインスタンスを生成しています。<br /><br />
+                                        引数に幅と高さをそれぞれセットする事でウィンドウ領域のサイズを決める事が出来ます。<b>window_width</b>と<b>window_height</b>の数値に合わせてサイズが変化するようになっているので、良かったら話を聞きながらでも弄ったりしてみてください:-)<br /><br />
+                                        クラスとは用途を絞った機能群を包括した器のようなもので、Coreクラスにはゲームの進行全般を管理する為の機能がまとめられています。<br />
+                                        クラスというのがいったいなんなのかピンと来ない人は<b>親子丼</b>をイメージしてみましょう。
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        <div class="align_center">
+                                            <img src="./img/oyako.jpg" class="img-thumbnail img-responsive" alt="美味しそう">
+                                        </div>
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        親子丼を親子丼たらしめるには、まっさらな器だけでは難しいものがあります。<br />
+                                        親子丼たらしめるべく器に<b>ご飯</b>をよそい<b>だしの効いた半熟のとき卵</b>・<b>鶏肉</b>・<b>三つ葉</b>を乗せなければなりません。<br />
+                                        クラスもまっさらなままでは、そのクラスが何を為しているのかがわかりません。<br /><br />
+                                        そのためCoreクラスでは<b>ゲームの進行を管理する</b>事をテーマにして、進行管理に必要な機能・細かい設定項目を取りまとめています。<br />
+                                        開発者は提供されているクラスをインスタンス化する事によって、手っ取り早くそれらの機能を利用する事が出来るようになります。<br /><br />
+                                        今回のぺちぱな。ではCoreクラス以外にもいくつかのクラスが登場します。<br />
+                                        クラスごとにどういった用途があって、どのようにして使われるのかはその都度合わせて紹介したいと思います。
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <h4>~/src/edit/main.js</h4>
+                                    <pre class="prettyprint lang-js linenums:9">
+var core = new Core(window_width,window_height);
+core.fps = 30.0;
+core.preload('./libs/images/chara1.png', 
+             './libs/images/background.png',
+             './libs/images/pipe.png',
+             './libs/images/status_banner.png');
+
+... 途中省略 ...
+</pre>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        Coreクラスのインスタンスを生成したら、さらに設定を行っていきます。ソースコードの10行目では<b>FPS</b>の設定を行っています。<br />
+                                        FPSは一秒あたりに処理される映像数を表しています。core.fpsには<b>30.0</b>を代入しているので、この例では一秒あたりに30回分のループが行われる事を意味しています。<br /><br />
+                                        パラパラ漫画に例えると、一秒間に30ページめくれていくイメージで考えていただけると大丈夫です:-)<br /><br />
+                                        11行目では<b>preload</b>と言う命令を呼び出して、事前に読み込む画像をセットしています。<br />
+                                        今回は既に一通り利用する画像をセットしているので、ここに対して手を加えていく事はありません。<br />
+                                        もし、ご自身で画像を追加したいと思った時にはこちらも忘れずに追加するようにしておきましょう:-)
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- exam_inline -->
+
+                            <!-- メインループの基本処理 -->
+                            <div class="exam_inline">
+                                <h3 id="2_4">メインループの基本処理</h3>
+                                <div class="exam_description">
+                                    <h4>~/src/edit/main.js</h4>
+                                    <pre class="prettyprint lang-js linenums:14">
+... 途中省略 ...
+
+core.onload = function(){
+    // クマ (プレイヤーの定義)
+    var bear   = new Sprite(32,32);                         // 画像描画開始の宣言
+    bear.image = core.assets['./libs/images/chara1.png'];   // 描画する画像を指定する
+    bear.x     = (window_width/2)-(32/2);                   // 画像の描画位置の指定(x軸)
+    bear.y     = (window_height/2)-(32/2);                  // 画像の描画位置の指定(軸)
+
+    /* 
+        背景のスクロール処理(非表示にしています...)
+    */
+
+    // 定義した画像を、事前に描画する
+    core.rootScene.addChild(bear);
+
+    // メインループ
+    core.on('enterframe', function(){
+        // この中に処理を書いていきます
+    });
+}
+
+core.start();
+
+... 途中省略 ...
+</pre>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        ソースコードの<b>16行目</b>から無名関数内にゲーム中の処理を定義しています。この辺りからの内容がメイン部分の処理になってきます。<br />
+                                        定義した無名関数を<b>core.onload</b>に代入する事で代入された関数の処理に沿ってゲームが動いていく事になります。
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- exam_inline -->
+
                         </div>
                         <!-- exam_content -->
                     </div>
