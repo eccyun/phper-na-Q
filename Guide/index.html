@@ -30,11 +30,6 @@
     </head>
 
     <body onload="prettyPrint();">
-        <div id="my_top" class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-header">
-            </div>
-        </div>
-
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-3 sidebar">
@@ -70,9 +65,9 @@
                             </a>
                         </li>
 
-                       <li>
+                        <li>
                             <a href="javascript:smoothScroll('2_0');" style="color : black;">
-                                2. 基本的な仕組み&nbsp;〜自機を動かしてみよう〜
+                                2. enchant.jsを使ったゲームの仕組み
                             </a>
                         </li>
 
@@ -100,17 +95,35 @@
                                 メインループの基本処理
                             </a>
                         </li>
+
+                        <li>
+                            <a href="javascript:smoothScroll('3_0');" style="color : black;">
+                                3. クマを動かせるようにしてみよう
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:smoothScroll('4_0');" style="color : black;">
+                                4. 障害物を設置して、衝突判定をつけてみよう
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:smoothScroll('5_0');" style="color : black;">
+                                5. ゲームとしての体裁を整えよう
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
-                <div class="col-sm-9 col-sm-offset-3 ">
+                <div class="col-sm-9 col-sm-offset-3" style="position:absolute;top:0px;">
                     <div class="page-header">
                         <h1>ぺちぱな。Q <small>〜たまには決められた通りに繰り返すのもいい〜</small></h1>
                     </div>
 
                     <div class="section_block">
                         <div class="page-header">
-                            <h1 id="1_0">1. はじめに</h1>
+                            <h2 id="1_0">1. はじめに</h2>
                         </div>
 
                         <!-- exam_content -->
@@ -313,7 +326,7 @@
 
                     <div class="section_block">
                         <div class="page-header">
-                            <h1 id="2_0">2. 基本的な仕組み&nbsp;〜自機を動かしてみよう〜</h1>
+                            <h2 id="2_0">2. enchant.jsを使ったゲームの仕組み</h2>
                         </div>
 
                         <!-- exam_content -->
@@ -625,15 +638,85 @@ core.start();
                                 <div class="exam_description">
                                     <p>
                                         ソースコードの<b>16行目</b>から無名関数内にゲーム中の処理を定義しています。この辺りからの内容がメイン部分の処理になってきます。<br />
-                                        定義した無名関数を<b>core.onload</b>に代入する事で代入された関数の処理に沿ってゲームが動いていく事になります。
+                                        定義した無名関数を<b>core.onload</b>に代入する事で代入された関数の処理に沿ってゲームが動きます。<br /><br />
+
+                                        <b>31行目</b>からはメインループの定義を書いています。また、メインループより前にはゲーム上で利用される画像の描画を行っています。<br />
+                                        波括弧の範囲内に書いたプログラムは、ページを読み込んだ後もくり返しくり返し実行されます。この中でユーザーのキー入力などはを受け取りながら、事前に定義した決められた処理を決められた通りにくり返して行くわけです:-)<br /><br />
+
+                                        とは言っても、ここまでの内容だけではいまいちピンと来ない部分もあるかもしれません。<br />
+                                        そこで、次の項目では画像の描画についても取り上げつつ、実際にクマを操作するプログラムを作ってより詳しく内容を見ていきます。
                                     </p>
                                 </div>
                             </div>
                             <!-- exam_inline -->
-
                         </div>
                         <!-- exam_content -->
                     </div>
+
+
+                    <div class="section_block">
+                        <div class="page-header">
+                            <h2 id="3_0">3. クマを動かせるようにしてみよう</h2>
+                        </div>
+
+                        <!-- exam_content -->
+                        <div class="exam_content">
+                            <a href="javascript:smoothScroll('my_top');">
+                                ↑トップへ戻る
+                            </a>
+
+                            <div class="exam_description">
+                                <p>
+                                    2章ではenchant.jsのセットアップを皮切りに、大枠の動きと仕組みについて紹介を行いました。<br />
+                                    3章では、2章でちょっと出てきた<b>メインループ</b>がどういうものなのか、実際にキー入力操作を受け取るプログラムを書きながら紹介していきたいと思います。
+                                </p>
+                            </div>
+                        </div>
+                        <!-- exam_content -->
+                    </div>
+
+                    <div class="section_block">
+                        <div class="page-header">
+                            <h2 id="4_0">4. 障害物を設置して、衝突判定をつけてみよう</h2>
+                        </div>
+
+                        <!-- exam_content -->
+                        <div class="exam_content">
+                            <a href="javascript:smoothScroll('my_top');">
+                                ↑トップへ戻る
+                            </a>
+
+                            <div class="exam_description">
+                                <p>
+                                    ここでは、実際にキャラクターを操作するプログラムを書いて、ゲームがどのようにして動いているのかを見ていきたいと思います。
+                                </p>
+                            </div>
+                        </div>
+                        <!-- exam_content -->
+                    </div>
+                    <!-- section -->
+
+                    <div class="section_block">
+                        <div class="page-header">
+                            <h2 id="5_0">5. ゲームとしての体裁を整えよう</h2>
+                        </div>
+
+                        <!-- exam_content -->
+                        <div class="exam_content">
+                            <a href="javascript:smoothScroll('my_top');">
+                                ↑トップへ戻る
+                            </a>
+
+                            <div class="exam_description">
+                                <p>
+                                    2章ではenchant.jsのセットアップを皮切りに、大枠の動きと仕組みの紹介を行いました。<br />
+                                    3
+                                </p>
+                            </div>
+                        </div>
+                        <!-- exam_content -->
+                    </div>
+                    <!-- section -->
                 </div>
             </div>
         </div>
