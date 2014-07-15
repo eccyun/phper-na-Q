@@ -103,6 +103,24 @@
                         </li>
 
                         <li>
+                            <a href="javascript:smoothScroll('3_1');">
+                                スプライトを描画する
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:smoothScroll('3_2');">
+                                キー入力を受け取る&nbsp;〜もしなになにだったら〜
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:smoothScroll('3_3');">
+                                クマを動かせるようにしてみよう:実践編
+                            </a>
+                        </li>
+
+                        <li>
                             <a href="javascript:smoothScroll('4_0');" style="color : black;">
                                 4. 障害物を設置して、衝突判定をつけてみよう
                             </a>
@@ -592,10 +610,8 @@ core.preload('./libs/images/chara1.png',
                                     <p>
                                         Coreクラスのインスタンスを生成したら、さらに設定を行っていきます。ソースコードの10行目では<b>FPS</b>の設定を行っています。<br />
                                         FPSは一秒あたりに処理される映像数を表しています。core.fpsには<b>30.0</b>を代入しているので、この例では一秒あたりに30回分のループが行われる事を意味しています。<br /><br />
-                                        パラパラ漫画に例えると、一秒間に30ページめくれていくイメージで考えていただけると大丈夫です:-)<br /><br />
-                                        11行目では<b>preload</b>と言う命令を呼び出して、事前に読み込む画像をセットしています。<br />
-                                        今回は既に一通り利用する画像をセットしているので、ここに対して手を加えていく事はありません。<br />
-                                        もし、ご自身で画像を追加したいと思った時にはこちらも忘れずに追加するようにしておきましょう:-)
+                                        パラパラ漫画に例えると、一秒間に30ページずつめくれていくイメージで考えていただけると大丈夫です:-)<br /><br />
+                                        11行目では<b>preload</b>と言う命令を呼び出して、事前に読み込む画像をセットしています。今回は事前に利用する画像を全てセットしているので、ここに対して手を加えていく事はありません。もし、ご自身で画像を追加したいと思った時にはこちらも忘れずに追加するようにしておきましょう:-)
                                     </p>
                                 </div>
                             </div>
@@ -656,7 +672,7 @@ core.start();
 
                     <div class="section_block">
                         <div class="page-header">
-                            <h2 id="3_0">3. クマを動かせるようにしてみよう</h2>
+                            <h2 id="3_0">3. クマを表示して動かせるようにしてみよう</h2>
                         </div>
 
                         <!-- exam_content -->
@@ -668,8 +684,187 @@ core.start();
                             <div class="exam_description">
                                 <p>
                                     2章ではenchant.jsのセットアップを皮切りに、大枠の動きと仕組みについて紹介を行いました。<br />
-                                    3章では、2章でちょっと出てきた<b>メインループ</b>がどういうものなのか、実際にキー入力操作を受け取るプログラムを書きながら紹介していきたいと思います。
+                                    3章では、2章でちょっと出てきた<b>メインループ</b>がどういうものなのかをプログラムを書きながら紹介したいと思います。<br />
+                                    実際にキー入力操作を受け取るプログラムを書いて、クマを動かせるようにしてみましょう:-)
                                 </p>
+                            </div>
+
+                            <!-- クマの画像を描画する -->
+                            <div class="exam_inline">
+                                <h3 id="3_1">スプライトを描画する</h3>
+
+                                <div class="exam_description">
+                                    <p>
+                                        画像を描画するには、<b>Sprite</b/>クラスを用いて行います。
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <h4>~/Chapter/Chapter3/edits/main.js</h4>
+                                    <pre class="prettyprint lang-js linenums:10">
+... 途中省略 ...
+
+core.onload = function(){
+    // クマ (プレイヤーの定義)
+    var size   = 32;
+    var bear   = new Sprite(size,size);
+    bear.image = core.assets['./libs/images/chara1.png'];   // 描画する画像を指定する
+    bear.x     = (window_width/2)-(size/2);                 // 画像の描画位置の指定(x軸)
+    bear.y     = (window_height/2)-(size/2);                // 画像の描画位置の指定(軸)
+    bear.frame = 0;                                         // 描画領域の範囲を指定する
+    core.rootScene.addChild(bear);                          // クマを画面上に描画する
+}
+
+</pre>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        Spriteクラスをインスタンス化する時に、引数に描画する画像の幅と高さをそれぞれセットする事ができます。<br />
+                                        こうする事で<b>スプライト</b>を生成する事が出来ます。<b>スプライト</b>はイメージ的には額のようなもので、実際の画像から描画領域を決定してはめこまれた物が画面上に表示されるようになっています。<br />ここでは描画を行う前に画像の指定と、それをどこに描画するのかx軸とy軸それぞれに指定しています。<br />
+                                        実際に<b>16行目</b>で指定している画像chara1.pngは以下のような画像になっています。
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        <div class="align_center">
+                                            <img src="./img/3-1.png" class="img-thumbnail img-responsive" alt="3-1.png">
+                                            <h5>いろいろなクマが...</h5>
+                                        </div>
+
+                                        <div class="align_center">
+                                            <img src="./img/3-1_mark.png" class="img-thumbnail img-responsive" alt="3-1_mark.png">
+                                            <h5>bear.frameの値に合わせて変わるんです。</h5>
+                                        </div>
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        このように複数の画像を1つの画像にタイル状に取りまとめたものを<b>スプライトシート</b>と言います。
+                                        個別に画像を準備する場合と比べた場合、役割に合わせて画像をまとめる事で管理が行いやすく、画像の容量を抑える事が出来るメリットがあります。<br /><br />
+                                        enchant.jsではこのようなスプライトシートを手軽に使う為の機能が提供されています。<b>19行目</b>の<b>bear.frame</b>がそうです。<br /><br />
+                                        明示的に指定していない場合、ないしは0を代入している場合はスプライトシートの左上を基準にインスタンス化した際に引数で渡した画像の幅と高さをもとにしてスプライトを生成します。試しにサンプルのプログラムで<b>bare.frame</b>に代入する値を0から1へとじゅんぐり上げていくと赤枠の描画領域から、右に1つずつずれて表示されます。もし良かったら聞きながらでも構いませんので、いろいろと数値をいじってどうなるか試してみてください:-)
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- キー入力を受け取る&nbsp;〜もしなになにだったら〜 -->
+                            <div class="exam_inline">
+                                <h3 id="3_2">キー入力を受け取る&nbsp;〜もしなになにだったら〜</h3>
+
+                                <div class="exam_description">
+                                    <p>
+                                        スプライト描画についての仕組みがわかったところで、いよいよ描画されたクマをユーザーの操作で動かせるようにしていきます。<br />
+                                        実際に、キー入力によってクマが上下左右に入力されたキーに合わせて動くようにします。<br /><br />
+                                        キー入力を受け取って画面に結果を反映させる為には<b>「もし上方向にキーが押されていたら」</b><b>「もし下方向にキーが押されていたら」</b>のように<b>「もしなになにだったら」</b>と言う処理を追加してあげなければなりません。JavaScriptでは<b>if文</b>を使うことによって実現する事が出来ます。
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <h4>JavaScriptでもしもなになにだったら〜</h4>
+                                    <pre class="prettyprint lang-js linenums">
+// 単体
+if (/* 条件式 */) {
+    // 条件式に一致した時に実行される処理
+}
+
+// 複数分岐
+if (/* 条件1 */) {
+    // 条件1に一致した時に実行される処理
+}else if (/* 条件2 */){
+    // 条件2に一致した時に実行される処理
+}else{
+    // 条件1にも条件2にも一致しない場合実行される処理
+}
+
+// 例 ログには「正」の字が出力される
+var value = 1;
+if(value==1){
+    console.log('正');
+}else{
+    console.log('不正');
+}
+</pre>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        JavaScriptにおけるif文の書き方は上記のような形になっています。条件式をもとにして正しい内容であれば、括弧の中へと処理が進んでいくようになります。また、<b>else if</b>を使うことによって、複数の条件を候補としたより柔軟な処理が行えるようになります。<br /><br />
+                                        この内容をもとにして、キー入力を受け取れるようにしたサンプルが下記になります。
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <h4>~/Chapter/Chapter3/inputs/main.js</h4>
+                                    <pre class="prettyprint lang-js linenums">
+enchant();  // enchant.jsの利用宣言　必ず最初に宣言する
+
+window.onload = function(){
+    var window_width  = 320;    // ゲーム領域の幅
+    var window_height = 568;    // ゲーム領域の高さ
+
+    // CoreObjectの定義
+    var core = new Core(window_width,window_height);
+    core.fps = 30.0;
+
+    core.onload = function(){
+        // メインループ（この中に処理を書いていきます)
+        core.on('enterframe', function(){
+            if(core.input.up){
+                console.log('方向キーの上キーが押されました');
+            }else if (core.input.down){
+                console.log('方向キーの下キーが押されました');
+            }else if (core.input.left){
+                console.log('方向キーの左キーが押されました');
+            }else if (core.input.right){
+                console.log('方向キーの右キーが押されました');
+            }
+        });
+    }
+
+    core.start();
+};
+</pre>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        <a href="../Chapter/Chapter3/inputs/index.html" target="_blank">ブラウザから確認すると</a>、画面上ではこれと言って何も表示されていませんが、上下左右の方向キーのいずれかを入力すると、対応する形が出力される事を確認する事ができます。<br />
+                                        <b>enchant.js</b>はCoreクラスの<b>input</b>がゲームに対する入力操作を管理しており、<b>if文</b>を使ってこのような形で条件式としてメインループ内で定義することによってユーザーのキー入力に対する処理を実装する事が出来ます。
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <!-- クマを動かせるようにしてみよう:実践編 -->
+                            <div class="exam_inline">
+                                <h3 id="3_3">クマを動かせるようにしてみよう:実践編</h3>
+
+                                <div class="exam_description">
+                                    <p>
+                                        それではここまでの内容を踏まえて、クマを操作して動かす為のプログラムを書いてみましょう。<br />
+                                        なお、はじめに処理の流れを確認したいと思います。おおまかな処理の流れは以下の通りです。
+                                    </p>
+                                </div>
+
+                                <div class="well">
+                                    <h5>おだいもく</h5>
+                                    <ul class="procedure">
+                                        <li>処理自体はメインループの中に定義していく</li>
+                                        <li>現在中央に表示されている、クマをキー入力に合わせて動かせるようにする</li>
+                                        <li>if文を使って「もし上方向に押されていたら」と言う形で、上下左右の方向キーに対する処理を追加する</li>
+                                        <li>3番で定義したif文にそれぞれクマの移動処理を実装します</li>
+                                    </ul>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        なお、描画されたクマのスプライトの座標は<b>bear.x, bear.y</b>のように定義したスプライトの<b>x, y</b>それぞれに数値を代入する事で表示される座標を更新する事が出来るようになっています。<br />
+                                        この点に対してあらかじめ確認した上で、クマを自由に動けるようにプログラムを拡張してみましょう:-)
+                                    </p>
+                                </div>
                             </div>
                         </div>
                         <!-- exam_content -->

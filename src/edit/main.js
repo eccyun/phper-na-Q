@@ -11,12 +11,6 @@ window.onload = function(){
 	core.preload('./libs/images/chara1.png', './libs/images/background.png', './libs/images/pipe.png','./libs/images/status_banner.png');
 
 	core.onload = function(){
-		// クマ (プレイヤーの定義)
-		var bear   = new Sprite(32,32);							// 画像描画開始の宣言
-		bear.image = core.assets['./libs/images/chara1.png'];	// 描画する画像を指定する
-		bear.x     = (window_width/2)-(32/2);					// 画像の描画位置の指定(x軸)
-		bear.y     = (window_height/2)-(32/2);					// 画像の描画位置の指定(軸)
-
 		// バックグランド定義
 		var bg   = new Sprite(window_width, window_height);
 		bg.image = core.assets['./libs/images/background.png'];
@@ -48,6 +42,13 @@ window.onload = function(){
 				this.x = window_width;
 			}
 		});
+
+		// クマ (プレイヤーの定義)
+		var bear   = new Sprite(32,32);							// 画像描画開始の宣言
+		bear.image = core.assets['./libs/images/chara1.png'];	// 描画する画像を指定する
+		bear.x     = (window_width/2)-(32/2);					// 画像の描画位置の指定(x軸)
+		bear.y     = (window_height/2)-(32/2);					// 画像の描画位置の指定(軸)
+		bear.frame = 0;											// 描画領域の範囲を指定する
 
 		// 定義した画像を、事前に描画する
 		core.rootScene.addChild(bg);
