@@ -127,8 +127,26 @@
                         </li>
 
                         <li>
+                            <a href="javascript:smoothScroll('4_1');">
+                                当たって砕ける、衝突判定いろいろ
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:smoothScroll('4_2');">
+                                衝突判定を作るには
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:smoothScroll('4_3');">
+                                クマが障害物にぶつかった時のイベントを作ってみよう:実践編
+                            </a>
+                        </li>
+
+                        <li>
                             <a href="javascript:smoothScroll('5_0');" style="color : black;">
-                                5. ゲームとしての体裁を整えよう
+                                5. よりゲームっぽくしてみよう
                             </a>
                         </li>
                     </ul>
@@ -170,6 +188,13 @@
                                     </p>
                                 </div>
 
+
+                                <div class="exam_description">
+                                    <p>
+                                        編集中
+                                    </p>
+                                </div>
+<!--
                                 <ul>
                                     <li>
                                         <dl>
@@ -204,6 +229,7 @@
                                         </dl>
                                     </li>
                                 </ul>
+-->
                             </div>
 
                             <!-- コンピュータゲームの歴史 -->
@@ -419,8 +445,8 @@
                                             <dt>~/src/edit/main.js/</dt>
                                             <dd style="margin-top : 5px;">
                                                 <p>
-                                                    ゲームの実行にあたって、必要な処理はこちらに書いていきます。<br />
-                                                    今回のハンズオンでも実際に編集するファイルはこちらのみとなっております。
+                                                    各章の最後で、こちらのプログラムを拡張しながらゲームを作っていきます。<br />
+                                                    ハンズオンで実際に編集するファイルは今回こちらのみとなっております。
                                                 </p>
                                             </dd>
                                         </dl>
@@ -499,27 +525,26 @@ window.onload = function(){
     var core = new Core(window_width,window_height);
     core.fps = 30.0;
     core.preload('./libs/images/chara1.png', 
-                 './libs/images/background.png',
-                 './libs/images/pipe.png',
-                 './libs/images/status_banner.png');
+             './libs/images/background.png',
+             './libs/images/pipe.png');
 
     core.onload = function(){
-        // クマ (プレイヤーの定義)
-        var bear   = new Sprite(32,32);                         // 画像描画開始の宣言
-        bear.image = core.assets['./libs/images/chara1.png'];   // 描画する画像を指定する
-        bear.x     = (window_width/2)-(32/2);                   // 画像の描画位置の指定(x軸)
-        bear.y     = (window_height/2)-(32/2);                  // 画像の描画位置の指定(軸)
-
         /* 
-            背景のスクロール処理(非表示にしています...)
+            背景のスクロール処理
         */
 
-        // 定義した画像を、事前に描画する
-        core.rootScene.addChild(bear);
+        // クマ (プレイヤーの定義)
+        var size   = 32;
+        var bear   = new Sprite(size,size);
+        bear.image = core.assets['./libs/images/chara1.png'];   // 描画する画像を指定する
+        bear.x     = (window_width/2)-(size/2);                 // 画像の描画位置の指定(x軸)
+        bear.y     = (window_height/2)-(size/2);                // 画像の描画位置の指定(軸)
+        bear.frame = 0;                                         // 描画領域の範囲を指定する
+        core.rootScene.addChild(bear);                          // クマを画面上に描画する
 
         // メインループ
         core.on('enterframe', function(){
-            // この中に処理を書いていきます
+            /* この中に処理を書いていきます */
         });
     }
 
@@ -594,13 +619,13 @@ window.onload = function(){
 
                                 <div class="exam_description">
                                     <h4>~/src/edit/main.js</h4>
-                                    <pre class="prettyprint lang-js linenums:9">
+                                    <pre class="prettyprint lang-js linenums:8">
+// CoreObjectの定義
 var core = new Core(window_width,window_height);
 core.fps = 30.0;
 core.preload('./libs/images/chara1.png', 
              './libs/images/background.png',
-             './libs/images/pipe.png',
-             './libs/images/status_banner.png');
+             './libs/images/pipe.png');
 
 ... 途中省略 ...
 </pre>
@@ -622,26 +647,26 @@ core.preload('./libs/images/chara1.png',
                                 <h3 id="2_4">メインループの基本処理</h3>
                                 <div class="exam_description">
                                     <h4>~/src/edit/main.js</h4>
-                                    <pre class="prettyprint lang-js linenums:14">
+                                    <pre class="prettyprint lang-js linenums:13">
 ... 途中省略 ...
 
 core.onload = function(){
-    // クマ (プレイヤーの定義)
-    var bear   = new Sprite(32,32);                         // 画像描画開始の宣言
-    bear.image = core.assets['./libs/images/chara1.png'];   // 描画する画像を指定する
-    bear.x     = (window_width/2)-(32/2);                   // 画像の描画位置の指定(x軸)
-    bear.y     = (window_height/2)-(32/2);                  // 画像の描画位置の指定(軸)
-
     /* 
         背景のスクロール処理(非表示にしています...)
     */
 
-    // 定義した画像を、事前に描画する
-    core.rootScene.addChild(bear);
+    // クマ (プレイヤーの定義)
+    var size   = 32;
+    var bear   = new Sprite(size,size);
+    bear.image = core.assets['./libs/images/chara1.png'];   // 描画する画像を指定する
+    bear.x     = (window_width/2)-(size/2);                 // 画像の描画位置の指定(x軸)
+    bear.y     = (window_height/2)-(size/2);                // 画像の描画位置の指定(軸)
+    bear.frame = 0;                                         // 描画領域の範囲を指定する
+    core.rootScene.addChild(bear);                          // クマを画面上に描画する
 
-    // メインループ
+    // メインループ（この中に処理を書いていきます)
     core.on('enterframe', function(){
-        // この中に処理を書いていきます
+
     });
 }
 
@@ -700,11 +725,9 @@ core.start();
                                 </div>
 
                                 <div class="exam_description">
-                                    <h4>~/Chapter/Chapter3/edits/main.js</h4>
-                                    <pre class="prettyprint lang-js linenums:10">
+                                    <h4>~/src/edit/main.js</h4>
+                                    <pre class="prettyprint lang-js linenums:51">
 ... 途中省略 ...
-
-core.onload = function(){
     // クマ (プレイヤーの定義)
     var size   = 32;
     var bear   = new Sprite(size,size);
@@ -713,8 +736,7 @@ core.onload = function(){
     bear.y     = (window_height/2)-(size/2);                // 画像の描画位置の指定(軸)
     bear.frame = 0;                                         // 描画領域の範囲を指定する
     core.rootScene.addChild(bear);                          // クマを画面上に描画する
-}
-
+... 途中省略 ...
 </pre>
                                 </div>
 
@@ -837,14 +859,13 @@ window.onload = function(){
                                 </div>
                             </div>
 
-
                             <!-- クマを動かせるようにしてみよう:実践編 -->
                             <div class="exam_inline">
                                 <h3 id="3_3">クマを動かせるようにしてみよう:実践編</h3>
 
                                 <div class="exam_description">
                                     <p>
-                                        それではここまでの内容を踏まえて、クマを操作して動かす為のプログラムを書いてみましょう。<br />
+                                        それではここまでの内容を踏まえて<b>~/src/edit/main.js</b>を拡張します。クマを操作して動かす為のプログラムを書いてみましょう！<br />
                                         なお、はじめに処理の流れを確認したいと思います。おおまかな処理の流れは以下の通りです。
                                     </p>
                                 </div>
@@ -862,7 +883,7 @@ window.onload = function(){
                                 <div class="exam_description">
                                     <p>
                                         なお、描画されたクマのスプライトの座標は<b>bear.x, bear.y</b>のように定義したスプライトの<b>x, y</b>それぞれに数値を代入する事で表示される座標を更新する事が出来るようになっています。<br />
-                                        この点に対してあらかじめ確認した上で、クマを自由に動けるようにプログラムを拡張してみましょう:-)
+                                        この点に対してあらかじめ確認した上で、クマを自由に動けるようにプログラムを拡張してみましょう！
                                     </p>
                                 </div>
                             </div>
@@ -883,8 +904,168 @@ window.onload = function(){
 
                             <div class="exam_description">
                                 <p>
-                                    ここでは、実際にキャラクターを操作するプログラムを書いて、ゲームがどのようにして動いているのかを見ていきたいと思います。
+                                    3章では、メインループの仕組みをよりイメージしやすくするべくキー入力操作のプログラムを実装しました！<br />
+                                    キャラクターを画面上に描画して、動かせるようになったら今度は衝突判定について紹介していきます。<br />
+                                    キャラクターを動かして、衝突判定をつけれるようになったら<b>それはもうゲーム！</b>それでは、張り切ってまいりましょう！
                                 </p>
+                            </div>
+
+                            <!-- 当たって砕ける、衝突判定いろいろ -->
+                            <div class="exam_inline">
+                                <h3 id="4_1">当たって砕ける、衝突判定いろいろ</h3>
+
+                                <div class="exam_description">
+                                    <p>
+                                        <b>衝突判定は</b>ある物体と、それとは異なる別の物体が衝突したのかそうでないかを判定するプログラムの事を言います。別の言い方として当たり判定なんて言い方もあります。衝突判定にもいろいろな方法がありますが、その中でも基本となるものは矩形による衝突判定処理です。
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        <div class="align_center">
+                                            <img src="./img/collision.png" class="img-thumbnail img-responsive" alt="衝突判定">
+                                            <h5>矩形の衝突判定</h5>
+                                        </div>
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        このように描画された物体の範囲を矩形として扱うことで、それぞれの座標を確認して物体同士の重なりを表現し判定する事が出来ます。<br />
+                                        ただし、描画される物体には矩形でないものが多いので、画像によっては物体同士が衝突していなくても衝突されたものとして扱われる場合もあります。出来る限り画像と矩形の大きさを同じようにする事で自然な形になります。
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        矩形の判定が基本的な判定処理となりますが、単純な矩形の判定を自分で作ろうと思っても結構大変です。<br />
+                                        そこで、今回はenchant.jsのSpriteクラスに内包されている<b>intersect</b>メソッドを使った衝突判定の付け方を紹介します。
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <!-- 衝突判定を作るには -->
+                            <div class="exam_inline">
+                                <h3 id="4_2">衝突判定を作るには</h3>
+
+                                <div class="exam_description">
+                                    <p>
+                                        それでは衝突判定の実装について、サンプルをもとに紹介したいと思います！
+                                        <a href="../Chapter/Chapter4/collision/index.html" target="_blank">ブラウザから確認</a>してみると以下のような画面が表示されます。
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        <div class="align_center">
+                                            <img src="./img/bear_pipe.png" class="img-thumbnail img-responsive" alt="クマと土管と...">
+                                            <h5>クマと土管と...</h5>
+                                        </div>
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        <b>クマ</b>と<b>土管</b>という珍妙な組み合わせの画面が表示されましたでしょうか！
+                                        こちらのプログラムでは実際にクマを操作して動かす事が出来るようになっており、土管にぶつかるとブラウザ上でアラートが表示されるようになっています。そこにはなんと衝撃のメッセージが・・・。
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <h4>~/Chapter/Chapter4/collision/main.js</h4>
+                                    <pre class="prettyprint lang-js linenums:19">
+... 途中省略 ...
+
+// 障害物の定義
+var pipe   = new Sprite(64, 568);
+pipe.image = core.assets['./libs/images/pipe.png'];
+pipe.x     = window_width-128;
+pipe.y     = 100;
+pipe.frame = 0;
+core.rootScene.addChild(bear);  // クマを画面上に描画する
+core.rootScene.addChild(pipe);  // 障害物を画面上に描画する
+
+// メインループ（この中に処理を書いていきます)
+core.on('enterframe', function(){
+    // クマと土管が衝突したらif文の中へ
+    if(bear.intersect(pipe)){
+        core.stop();
+        window.alert("GAME OVER...");
+    }
+
+... 途中省略 ...
+</pre>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        事前に障害物となる土管を描画する事で、メインループの先頭でクマと土管の衝突判定処理を組み込んでいます。<br />
+                                        衝突判定の実装は<b>33行目</b>から行っています。このように描画した物体(スプライト)のintersectメソッドを呼び出して、引数に衝突判定を行う物体をセットする事で、物体同士の衝突判定を行う事が出来ます。物体同士が衝突している場合にif文の中の処理が実行されます。
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        そして、なんという事でしょう・・・。ここではクマと土管が衝突すると<b>GAME OVER...</b>と書かれたアラートが出力されます！<br />
+                                        ここでは簡単なゲームオーバー処理を行っています。Coreクラスの<b>stop</b>メソッドがそうです。<br />
+                                        <b>stop</b>メソッドを呼び出す事によって、<b>start</b>メソッドが呼び出されているCoreクラス内のメインループを全て停止する事が出来ます。<br />
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        また、ここで描画されている土管は今後も障害物用として利用していきます。<br />
+                                        土管の元画像はクマの元画像の用に複数の画像を取りまとめた<b>スプライトシート</b>として管理しています。
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        <div class="align_center">
+                                            <img src="./img/pipe.png" class="img-thumbnail img-responsive" alt="pipe.png">
+                                            <h5>土管が障害物になるんです</h5>
+                                        </div>
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        こちらもクマの画像と同様に<b>frame</b>の値を0から1に変更する事によって、画面上に描画する内容を変更することが出来ます。<br />
+                                        これを上手く使うと<a href="../Chapter/Chapter4/collision/index.html" target="_blank">サンプル</a>では下から上に突き出しているような表現になっていますが、座標と合わせて調整してあげる事で上から下に突き出しているような表現も行えるようになります。<br />
+                                        もし良かったら聞きながらでも構いませんので、いろいろとframeや座標(x,y軸)を弄って試してみてください:-)
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- クマが障害物にぶつかった時のイベントを作ってみよう -->
+                            <div class="exam_inline">
+                                <h3 id="4_3">クマが障害物にぶつかった時のイベントを作ってみよう:実践編</h3>
+
+                                <div class="exam_description">
+                                    <p>
+                                        それではここまでの内容を踏まえて<b>~/src/edit/main.js</b>を拡張していきましょう！<br />
+                                        自分が操作するクマが<b>宇宙空間に突如現れた土管</b>に衝突した時のプログラムを書いていきます。<br />
+                                        またしても、はじめに処理の流れを確認したいと思います。おおまかな処理の流れは以下の通りです。
+                                    </p>
+                                </div>
+
+                                <div class="well">
+                                    <h5>おだいもく</h5>
+                                    <ul class="procedure">
+                                        <li>処理自体はメインループの中に定義していく</li>
+                                        <li>画面上の適当な位置へ土管を描画する</li>
+                                        <li>if文と組み合わせて「クマと土管が衝突した場合」を条件にした、衝突判定を作る</li>
+                                        <li>メインループを停止し、アラートを出力する</li>
+                                    </ul>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        4章では衝突判定についての紹介と、enchant.jsでの実装の仕方について紹介しました。<br />
+                                        次章が最後の内容となっていて、これまでの内容を踏まえてよりゲームっぽくしていきたいと思います。
+                                    </p>
+                                </div>
                             </div>
                         </div>
                         <!-- exam_content -->
@@ -893,7 +1074,7 @@ window.onload = function(){
 
                     <div class="section_block">
                         <div class="page-header">
-                            <h2 id="5_0">5. ゲームとしての体裁を整えよう</h2>
+                            <h2 id="5_0">5. よりゲームっぽくしてみよう</h2>
                         </div>
 
                         <!-- exam_content -->
@@ -904,8 +1085,7 @@ window.onload = function(){
 
                             <div class="exam_description">
                                 <p>
-                                    2章ではenchant.jsのセットアップを皮切りに、大枠の動きと仕組みの紹介を行いました。<br />
-                                    3
+                                    4章では衝突判定についての紹介と、enchant.jsでの実装の仕方について紹介してきました。5章ではこれまでの内容を踏まえて等間隔での障害物の配置や、スコアの計算と言ったよりゲームっぽくするための機能の作り方を紹介したいと思います。
                                 </p>
                             </div>
                         </div>
