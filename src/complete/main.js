@@ -3,7 +3,7 @@ enchant();
 // 関数群
 
 function makeRandomInt(value){
-	return Math.floor( Math.random() * value);
+	return Math.floor(Math.random() * value);
 }
 
 
