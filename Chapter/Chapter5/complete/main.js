@@ -115,6 +115,12 @@ window.onload = function(){
 						core.stop();
  						window.alert("GAME OVER...\nScore:"+game_score);
 				    }
+
+				    // 土管通過後
+				    if((this.x == (window_width/2)-(pipe2.width/2))){
+				    	game_score       = game_score+1;
+				    	score_label.text = String(game_score);
+				    }
 				});
 
 				this.rootScene.addChild(pipe);

@@ -149,6 +149,42 @@
                                 5. よりゲームっぽくしてみよう
                             </a>
                         </li>
+
+                        <li>
+                            <a href="javascript:smoothScroll('5_1');">
+                                完成図をイメージしよう
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:smoothScroll('5_2');">
+                                動くのはクマだけじゃない！？障害物にも動きをつけてみよう！
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:smoothScroll('5_3');">
+                                一定のタイミングで障害物を配置してみよう
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:smoothScroll('5_4');">
+                                一定のタイミングで障害物を配置してみよう:実践編
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:smoothScroll('5_5');">
+                                スコア用のラベルを表示するには？
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:smoothScroll('5_6');">
+                                スコア判定を追加してみよう:実践編
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
@@ -1085,8 +1121,349 @@ core.on('enterframe', function(){
 
                             <div class="exam_description">
                                 <p>
-                                    4章では衝突判定についての紹介と、enchant.jsの場合における実装の仕方について紹介してきました。5章ではこれまでの内容を踏まえて等間隔での障害物の配置や、スコアの計算と言ったよりゲームっぽくするための機能の作り方を紹介したいと思います。
+                                    4章では衝突判定についての紹介と、enchant.jsの場合における実装の仕方について紹介してきました。5章ではこれまでの内容を踏まえて等間隔での障害物の配置や、スコアの加算処理を組み合わせてよりゲームっぽくするために必要な機能の作り方を紹介したいと思います。
                                 </p>
+                            </div>
+
+                            <!-- 完成図をイメージしよう -->
+                            <div class="exam_inline">
+                                <h3 id="5_1">完成図をイメージしよう</h3>
+
+                                <div class="exam_description">
+                                    <p>
+                                        さあさあ、それでは早速作り進めていきましょう！・・・と言いたいところですが、気持ちをグッとこらえてどんな形にしていくのかまずは完成図をイメージしていきましょう。<a href="../Chapter/Chapter5/complete/index.html" target="_blank">こちら</a>を開いてみてください。
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        <div class="align_center">
+                                            <img src="./img/game.png" class="img-thumbnail img-responsive" alt="pipe.png">
+                                            <h5>これが・・・ゲームだ！</h5>
+                                        </div>
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        <b>宇宙空間</b>に<b>突如</b>として<b>飛来</b>した<b>土管の群れ</b>・・・。それを<b>懸命</b>に<b>潜り抜け</b>ていく<b>クマ</b>・・・。<b>明日</b>は、<b>どっちだ！？</b><br />
+                                        と、ちょっとばかり取り乱してしまいましたが、遊んでみるとなんだかゲームっぽい。と言うか、ゲームになってる。なんだかそんな感じがしませんか？どうでしょう・・・。<br />
+                                        遊んでみるととても難しそうに感じるかもしれませんが、これまでの内容をベースにしていく事でここまでのものが作れるようになります。<br />
+                                        ゲームを構成する要素として、どのようなものが備わっているのかを落ち着いて確認してみましょう。
+                                    </p>
+                                </div>
+
+                                <div class="well">
+                                    <h5>完成予定のゲームを構成する要素</h5>
+                                    <ul class="procedure">
+                                        <li>クマの表示・キー操作による上下移動</li>
+                                        <li>障害物となる土管の表示・右から左への移動</li>
+                                        <li>障害物は一定間隔でランダムな隙間を作って表示される</li>
+                                        <li>土管を潜り抜けると、上部のスコアが加算されていく</li>
+                                        <li>クマと土管における衝突判定、ゲーム終了のアラートが表示される</li>
+                                    </ul>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        こうして明文化して列挙してみると、なんだかちょっとだけ出来そうな気がしてきました。この中で今回のハンズオンでまだ取り扱っていない内容は<b>2番</b>の土管移動と<b>3番</b>と<b>4番</b>の内容となっています。どちらもゲームを作る上で大切な機能となっています！<br />
+                                        これらの機能はenchant.jsでは比較的簡単に実装する事が出来ます。次の内容より早速ですがどのような仕組みで作られているのかをご紹介したいと思います。遊びながらでもオッケーです:-)
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- 動くのはクマだけじゃない！？障害物にも動きをつけてみよう！ -->
+                            <div class="exam_inline">
+                                <h3 id="5_2">動くのはクマだけじゃない！？障害物にも動きをつけてみよう！</h3>
+
+                                <div class="exam_description">
+                                    <p>
+                                        まず、はじめに障害物に動きをつける方法についてご紹介したいと思います。<br />
+                                        4章で作ったプログラムの内容には障害物に対する衝突判定が実装されているものの、それが動いたりすることはありませんでした。<br />
+                                        これが障害物が動くようになる事によって、<b>動く障害物をかわしていく</b>といったゲームが作れるようになります！<br />
+                                        こちらもサンプルのプログラムを見ながら紹介したいと思います。<a href="../Chapter/Chapter5/move/index.html" target="_blank">こちら</a>を開いてみてください:-)
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        <div class="align_center">
+                                            <img src="./img/move_pipe.png" class="img-thumbnail img-responsive" alt="move_pipe.png">
+                                            <h5>右から左に土管が流れていますか？</h5>
+                                        </div>
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        キー操作の時に行った方法を使って、ループをくり返す度に土管のx軸座標を更新します。そうすると、上手い具合に画面上で障害物が動いてるさまを表現する事ができます。特段変わった仕組みは今回の内容では行っておりませんが、1つだけ確認したい内容があります。サンプルに実装されている、下記のコードです。
+                                    </p>
+                                </div>
+
+                               <div class="exam_description">
+                                    <h4>~/Chapter/Chapter5/move/main.js</h4>
+                                    <pre class="prettyprint lang-js linenums:10">
+... 途中省略 ...
+
+core.onload = function(){
+    // 障害物の定義
+    var pipe   = new Sprite(64, window_height);
+    pipe.image = core.assets['./libs/images/pipe.png'];
+    pipe.x     = window_width;
+    pipe.y     = 100;
+    pipe.frame = 0;
+    core.rootScene.addChild(pipe);  // 障害物を画面上に描画する
+
+    // 画面全体とは別にスプライトに対しても毎フレームごとの動きを定義できる
+    pipe.on('enterframe', function(){
+        this.x -= 2;
+    });
+
+... 途中省略 ...
+</pre>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        これまでは、ゲームの進行全般を管理しているCoreクラスで提供されている<b>on</b>メソッドを使って、これまでは毎フレームごとに繰り返し実行される処理を定義してきました。実は、同じようにSpriteクラスからでもonメソッドを呼び出す事ができます。<br />
+                                        <b>21行目から24行目</b>がその処理となっていて。こうする事で、Coreクラスで定義しているメインループとは別に描画しているスプライトに対しても毎フレームごとに実行される処理を定義する事が出来るようになります！
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        なお、JavaScriptで受け取ったイベントの処理内容として定義されている無名関数内の<b>this</b>はイベントもとのオブジェクトの事を指します。<br />
+                                        ちょっとでも覚えておくと、見通しも良くより安全なコードが書けるかもしれません:-)<br />
+                                        本サンプルでは描画した土管のスプライトを指しており、毎フレームにx軸を少しずつずらしていく。という処理になっています。
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <!-- 一定のタイミングで障害物を配置してみよう -->
+                            <div class="exam_inline">
+                                <h3 id="5_3">一定のタイミングで障害物を配置してみよう</h3>
+
+                                <div class="exam_description">
+                                    <p>
+                                        障害物の土管を動かせるようになったら、今度は障害物を一定のタイミング毎に配置をしていく方法をサンプルをもとに紹介していきます！<br />
+                                        まずはじめに<a href="../Chapter/Chapter5/schedule/index.html" target="_blank">こちら</a>のプログラムを開いてみてください。
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        <div class="align_center">
+                                            <img src="./img/schedule.png" class="img-thumbnail img-responsive" alt="schedule.png">
+                                            <h5>一定の間隔で土管がいろいろな高さでどんどん流れてきます。</h5>
+                                        </div>
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        動かしてみると、一定の間隔で土管が右から左に不規則な高さで流れていくのを確認する事が出来ます。このような仕組みはゲームでは結構多くて、作り方もいろいろあるかと思うのですが今回は一例として経過フレーム数をもとにして、障害物となる土管を描画していく方法について紹介したいと思います。
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        enchant.jsでは<b>Core</b>クラスの<b>frame</b>というプロパティから、ゲームがスタートしてからの経過フレーム数を受け取る事が出来ます。<br />
+                                        今回のサンプルでは経過フレーム数をもとに、60フレームおきに土管を描画して右から左に流すように処理を定義しています。
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <h4>~/Chapter/Chapter5/schedule/main.js</h4>
+                                    <pre class="prettyprint lang-js linenums:39">
+... 途中省略 ...
+
+// 60フレームおきに、土管を表示する
+if(core.frame%60==0){
+    // 障害物の定義
+    var pipe_width  = 64;
+    var pipe_height = 568;
+
+    var pipe        = new Sprite(pipe_width, pipe_height);
+    pipe.image      = core.assets['./libs/images/pipe.png'];
+    pipe.x          = window_width;
+    pipe.y          = (pipe_height/2)-Math.floor(Math.random()*150);
+    pipe.frame      = 0;
+    core.rootScene.addChild(pipe);  // 障害物を画面上に描画する
+
+    pipe.on('enterframe', function(){
+        this.x -= 2;
+
+        // クマと土管が衝突したらゲームを終了する
+        if(bear.intersect(this)){
+            core.stop();
+            window.alert("GAME OVER...");
+        }
+    });
+}
+
+... 途中省略 ...
+</pre>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        <b>経過フレーム数が割り切れる場合に〜〜をする</b>場合3章でも取り上げた、if文を組み合わせる事で実現する事が出来ます。<br />条件式には<b>経過フレーム数/60の余りが0</b>だったら真とする。という条件が入っています。<br />
+                                        こうする事によって経過フレーム数が60の倍数の時に60で割り切れるので、60フレームおきに何らかの処理を行う。と言った事が出来るようになります。
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        今回の内容では他に真新しいところはなく、60フレームおきに障害物を描画するというものになっていますが、障害物の高さをまばらにする為に乱数を生成して調整するようにしています。<br />
+                                        50行目で行っており<b>Math.floor(Math.random()*150)</b>では150までを範囲にランダムに数を返すようになっています。<br />
+                                        こういった乱数を用いて障害物の高さをまばらにする事で、遊んでいて退屈しないような仕組みを取り入れれるようになります。
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- 一定のタイミングで障害物を配置してみよう:実践編 -->
+                            <div class="exam_inline">
+                                <h3 id="5_4">一定のタイミングで障害物を配置してみよう:実践編</h3>
+
+
+                                <div class="exam_description">
+                                    <p>
+                                        それではここまでの内容を踏まえて<b>~/src/edit/main.js</b>を拡張していきましょう！<b>宇宙空間</b>に<b>突如</b>として<b>飛来</b>した<b>土管の群れ</b>・・・。<br />
+                                        こちらをクマを操作して潜り抜けていくプログラムを作っていきます。<br />
+                                        今回の内容は少し複雑なところもあって項目も多いので、落ち着いてまずは処理の流れを確認したいと思います。
+                                    </p>
+                                </div>
+
+                                <div class="well">
+                                    <h5>おだいもく</h5>
+                                    <ul class="procedure">
+                                        <li>処理はメインループの中で定義していく</li>
+                                        <li>60フレームおきに処理を動かす為の条件式を追加する</li>
+                                        <li>60フレームおきに上下それぞれに潜り抜ける隙間が有る土管を描画し、右から左へとフレーム毎に移動させる</li>
+                                        <li>if文と組み合わせて「クマと土管が衝突した場合」を条件にした衝突判定を作る</li>
+                                        <li>衝突した場合メインループを停止し、アラートを出力する</li>
+                                    </ul>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        ここまで行く事が出来れば、あとはスコア加算の処理を行うだけです:-)<br />
+                                        ゲーム上で文字を描画する場合、enchant.jsでは<b>Label</b>クラスを利用する事が出来ます。<br />
+                                        次の項目ではそんな<b>Label</b>クラスについて紹介させていただき、スコアの加算処理を作ってみたいと思います。
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- 一定のタイミングで障害物を配置してみよう:実践編 -->
+                            <div class="exam_inline">
+                                <h3 id="5_4">一定のタイミングで障害物を配置してみよう:実践編</h3>
+
+                                <div class="exam_description">
+                                    <p>
+                                        それではここまでの内容を踏まえて<b>~/src/edit/main.js</b>を拡張していきましょう！<b>宇宙空間</b>に<b>突如</b>として<b>飛来</b>した<b>土管の群れ</b>・・・。<br />
+                                        こちらをクマを操作して潜り抜けていくプログラムを作っていきます。<br />
+                                        今回の内容は少し複雑なところもあって項目も多いので、落ち着いてまずは処理の流れを確認したいと思います。
+                                    </p>
+                                </div>
+
+                                <div class="well">
+                                    <h5>おだいもく</h5>
+                                    <ul class="procedure">
+                                        <li>処理はメインループの中で定義していく</li>
+                                        <li>60フレームおきに処理を動かす為の条件式を追加する</li>
+                                        <li>60フレームおきに上下それぞれに潜り抜ける隙間が有る土管を描画し、右から左へとフレーム毎に移動させる</li>
+                                        <li>if文と組み合わせて「クマと土管が衝突した場合」を条件にした衝突判定を作る</li>
+                                        <li>衝突した場合メインループを停止し、アラートを出力する</li>
+                                    </ul>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        ここまで行く事が出来れば、あとはスコア加算の処理を行うだけです:-)<br />
+                                        ゲーム上で文字を描画する場合、enchant.jsでは<b>Label</b>クラスを利用する事が出来ます。<br />
+                                        次の項目ではそんな<b>Label</b>クラスについて紹介させていただき、スコアの加算処理を作ってみたいと思います。
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <!-- スコア用のラベルを表示するには？ -->
+                            <div class="exam_inline">
+                                <h3 id="5_5">スコア用のラベルを表示するには？</h3>
+
+                                <div class="exam_description">
+                                    <p>
+                                        画面上に文字を表示する場合、<b>enchant.js</b>では<b>Label</b>クラスを使って実現する事が出来ます。<br />
+                                        <a href="../Chapter/Chapter5/label/index.html" target="_blank">ブラウザから確認</a>すると、画面上部中央に「1192」と書かれている画面が表示されているかと思います。
+                                    </p>
+                                </div>
+
+                                <div class="exam_description">
+                                    <h4>~/Chapter/Chapter5/label/main.js</h4>
+                                    <pre class="prettyprint lang-js linenums">
+window.onload = function(){
+    enchant();
+
+    // CoreObjectの定義
+    var window_width  = 320;    // ゲーム領域の幅
+    var window_height = 568;    // ゲーム領域の高さ
+
+    var game = new Core(window_width,window_height);
+    game.fps = 30.0;
+
+    game.onload = function(){
+        // スコア表示用のラベル
+        var score_label   = new Label(String(1192));        // new Label(1192);とかだとエラーになる
+        var label_width   = score_label._boundWidth;        // 描画したラベルの幅を取得する
+        var label_height  = score_label._boundHeight;       // 描画したラベルの高さを取得する
+
+        score_label.x     = 10;
+        score_label.y     = 10;
+        score_label.color = '#000';
+        game.rootScene.addChild(score_label);
+    }
+
+    game.start();
+};
+</pre>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        スプライトの動きなど一切行われていない、ラベルを表示するだけのシンプルなプログラムになっています。<br />
+                                        Label型のオブジェクトを生成してからそれに対して必要な情報をセットし、表示座標と文字の色を調整しています。<br /><br />
+                                        注意事項としては、Labelクラスのオブジェクトを作成する時にセットする引数が文字列以外の場合エラーとなってしまいます。<br />
+                                        なので、スコアと言った数字のデータを表示したい時は<b>13行目</b>のように文字列形式でキャストするようにしてください。
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- スコア判定を追加してみよう:実践編 -->
+                            <div class="exam_inline">
+                                <h3 id="5_6">スコア判定を追加してみよう:実践編</h3>
+
+                                <div class="exam_description">
+                                    <p>
+                                        それではここまでの内容を踏まえて<b>~/src/edit/main.js</b>を拡張していきましょう！<br />
+                                        最後になっても、変わらずまずはじめに処理の流れについての確認から行いたいと思います。
+                                    </p>
+                                </div>
+
+                                <div class="well">
+                                    <h5>おだいもく</h5>
+                                    <ul class="procedure">
+                                        <li>ゲーム上にラベルを出力するプログラムを追加する</li>
+                                        <li>自身のキャラクターが土管を潜り抜ける度に、スコアが2点ずつ加算されていく</li>
+                                    </ul>
+                                </div>
+
+                                <div class="exam_description">
+                                    <p>
+                                        スコアに加算する条件もいろいろな方法があるかとは思いますが、障害物の土管が右から左に流れていった時に画面の中央よりも左側に移動するタイミングでスコアを加算してあげる方法が比較的シンプルで取っ付きやすいかもしれません。<br />
+                                        もし、行き詰まったりされた時にはご参考にしていただけると幸いです:-)
+                                    </p>
+                                </div>
                             </div>
                         </div>
                         <!-- exam_content -->
