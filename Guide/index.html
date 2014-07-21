@@ -30,13 +30,14 @@
     </head>
 
     <body onload="prettyPrint();">
+        <div id="my_top"></div>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-3 sidebar">
                     <ul class="nav nav-sidebar">
                         <li>
                             <a href="javascript:smoothScroll('1_0');" style="color : black;">
-                                1. はじめに
+                                1章. はじめに
                             </a>
                         </li>
 
@@ -67,7 +68,7 @@
 
                         <li>
                             <a href="javascript:smoothScroll('2_0');" style="color : black;">
-                                2. enchant.jsを使ったゲームの仕組み
+                                2章. enchant.jsを使ったゲームの仕組み
                             </a>
                         </li>
 
@@ -98,7 +99,7 @@
 
                         <li>
                             <a href="javascript:smoothScroll('3_0');" style="color : black;">
-                                3. クマを動かせるようにしてみよう
+                                3章. クマを動かせるようにしてみよう
                             </a>
                         </li>
 
@@ -122,7 +123,7 @@
 
                         <li>
                             <a href="javascript:smoothScroll('4_0');" style="color : black;">
-                                4. 障害物を設置して、衝突判定をつけてみよう
+                                4章. 障害物を設置して、衝突判定をつけてみよう
                             </a>
                         </li>
 
@@ -146,7 +147,7 @@
 
                         <li>
                             <a href="javascript:smoothScroll('5_0');" style="color : black;">
-                                5. よりゲームっぽくしてみよう
+                                5章. よりゲームっぽくしてみよう
                             </a>
                         </li>
 
@@ -185,6 +186,12 @@
                                 スコア判定を追加してみよう:実践編
                             </a>
                         </li>
+
+                        <li>
+                            <a href="javascript:smoothScroll('6_0');" style="color : black;">
+                                さいごに
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
@@ -195,7 +202,7 @@
 
                     <div class="section_block">
                         <div class="page-header">
-                            <h2 id="1_0">1. はじめに</h2>
+                            <h2 id="1_0">1章. はじめに</h2>
                         </div>
 
                         <!-- exam_content -->
@@ -224,17 +231,10 @@
                                     </p>
                                 </div>
 
-
-                                <div class="exam_description">
-                                    <p>
-                                        編集中
-                                    </p>
-                                </div>
-<!--
                                 <ul>
                                     <li>
                                         <dl>
-                                            <dt>index.html</dt>
+                                            <dt>~/Guide/index.html</dt>
                                             <dd style="margin-top : 5px;">
                                                 <p>
                                                     みなさまが、今開いているガイドブックです。<br />ここのファイルに手を加えていくことは今回はありません〜。
@@ -245,10 +245,11 @@
 
                                     <li>
                                         <dl>
-                                            <dt>cook/</dt>
+                                            <dt>~/Chapter/Chapter3<br />~/Chapter/Chapter4<br />~/Chapter/Chapter5</dt>
                                             <dd style="margin-top : 5px;">
                                                 <p>
-                                                    本日のハンズオンでみなさまに編集していただくファイルや<br />サンプルのプログラムがまとめてこのフォルダに入っています。
+                                                    本日のハンズオンは章構成で行われます。<br />
+                                                    各章で取り上げられるテーマに合わせて機能紹介用のプログラムが全てこの中に入っています。
                                                 </p>
                                             </dd>
                                         </dl>
@@ -256,16 +257,26 @@
 
                                     <li>
                                         <dl>
-                                            <dt>cook/chapter2/<br />cook/chapter3</dt>
+                                            <dt>~/Sample</dt>
                                             <dd style="margin-top : 5px;">
                                                 <p>
-                                                    本日のハンズオンでは章構成のようになっております。<br />chapter2ではツイートを。chapter3ではリプライを取り上げます。<br />各章で利用するプログラムはこの中に全て格納されています！
+                                                    具体的にどのようなゲームが作れるのか、enchant.jsが提供しているデモゲームが保存されています。
+                                                </p>
+                                            </dd>
+                                        </dl>
+                                    </li>
+
+                                    <li>
+                                        <dl>
+                                            <dt>~/src</dt>
+                                            <dd style="margin-top : 5px;">
+                                                <p>
+                                                    本日のハンズオンで皆さんに編集していただくプログラムのデータがこの中に保存されています。<br />
                                                 </p>
                                             </dd>
                                         </dl>
                                     </li>
                                 </ul>
--->
                             </div>
 
                             <!-- コンピュータゲームの歴史 -->
@@ -406,7 +417,7 @@
 
                     <div class="section_block">
                         <div class="page-header">
-                            <h2 id="2_0">2. enchant.jsを使ったゲームの仕組み</h2>
+                            <h2 id="2_0">2章. enchant.jsを使ったゲームの仕組み</h2>
                         </div>
 
                         <!-- exam_content -->
@@ -550,44 +561,72 @@
                                 <div class="exam_description">
                                     <h4>~/src/edit/main.js</h4>
                                     <pre class="prettyprint lang-js linenums">
-enchant();  // enchant.jsの利用宣言　必ず最初に宣言する
-
 window.onload = function(){
-    var game_score    = 0;
+    enchant();                  // enchant.jsの利用宣言　必ず最初に宣言する
+
+    var game_score    = 0;      // スコア管理用の変数
     var window_width  = 320;    // ゲーム領域の幅
     var window_height = 568;    // ゲーム領域の高さ
 
     // CoreObjectの定義
-    var core = new Core(window_width,window_height);
-    core.fps = 30.0;
-    core.preload('./libs/images/chara1.png', 
-             './libs/images/background.png',
-             './libs/images/pipe.png');
+    var game = new Core(window_width,window_height);
+    game.fps = 30.0;
+    game.preload('./libs/images/chara1.png', 
+                 './libs/images/background.png',
+                 './libs/images/pipe.png');
 
-    core.onload = function(){
-        /* 
-            背景のスクロール処理
-        */
+    game.onload = function(){
+        // 背景画像の定義
+        var bg   = new Sprite(window_width, window_height);
+        bg.image = this.assets['./libs/images/background.png'];
+        bg.x     = 0;
+        bg.y     = 0;
+        bg.frame = 0;
+        // 背景のスクロール
+        bg.on('enterframe', function(){
+            this.x -= 10;
+            // 画面外に到達したら座標を調整
+            if(this.x <= -window_width){
+                this.x = window_width;
+            }
+        });
+
+        // 背景画像の定義
+        var bg2   = new Sprite(window_width, window_height);
+        bg2.image = this.assets['./libs/images/background.png'];
+        bg2.x     = window_width;
+        bg2.y     = 0;
+        bg2.frame = 0;
+        // 背景のスクロール
+        bg2.on('enterframe', function(){
+            this.x -= 10;
+            // 画面外に到達したら座標を調整
+            if(this.x <= -window_width){
+                this.x = window_width;
+            }
+        });
+        // 定義した画像を、事前に描画する
+        game.rootScene.addChild(bg);
+        game.rootScene.addChild(bg2);
 
         // クマ (プレイヤーの定義)
         var size   = 32;
         var bear   = new Sprite(size,size);
-        bear.image = core.assets['./libs/images/chara1.png'];   // 描画する画像を指定する
+        bear.image = this.assets['./libs/images/chara1.png'];   // 描画する画像を指定する
         bear.x     = (window_width/2)-(size/2);                 // 画像の描画位置の指定(x軸)
         bear.y     = (window_height/2)-(size/2);                // 画像の描画位置の指定(軸)
         bear.frame = 0;                                         // 描画領域の範囲を指定する
-        core.rootScene.addChild(bear);                          // クマを画面上に描画する
+        game.rootScene.addChild(bear);                          // クマを画面上に描画する
 
         // メインループ
-        core.on('enterframe', function(){
-            /* この中に処理を書いていきます */
+        game.on('enterframe', function(){
+            //　主要なプログラムはこの中に書いていきます
         });
     }
 
-    core.start();
+    game.start();
 };
-
-...</pre>
+</pre>
                                 </div>
 
                                 <div class="exam_description">
@@ -603,20 +642,19 @@ window.onload = function(){
                                 <div class="exam_description">
                                     <h4>~/src/edit/main.js</h4>
                                     <pre class="prettyprint lang-js linenums">
-enchant();  // enchant.jsの利用宣言　必ず最初に宣言する
-
 window.onload = function(){
-    var game_score    = 0;
+    enchant();                  // enchant.jsの利用宣言　必ず最初に宣言する
+
+    var game_score    = 0;      // スコア管理用の変数
     var window_width  = 320;    // ゲーム領域の幅
     var window_height = 568;    // ゲーム領域の高さ
 
     // CoreObjectの定義
-    var core = new Core(window_width,window_height);
-    core.fps = 30.0;
-    core.preload('./libs/images/chara1.png', 
+    var game = new Core(window_width,window_height);
+    game.fps = 30.0;
+    game.preload('./libs/images/chara1.png', 
                  './libs/images/background.png',
-                 './libs/images/pipe.png',
-                 './libs/images/status_banner.png');
+                 './libs/images/pipe.png');
 
 ... 途中省略 ...
 </pre>
@@ -627,7 +665,8 @@ window.onload = function(){
                                     <p>
                                         JavaScriptでは<b>window.onload = function(){}</b>の<b>{}</b>で囲われた領域のプログラムが画面読み込み時に実行されます。<br />
                                         ここでは<b>9行目</b>でenchant.jsが提供している、Coreクラスのインスタンスを生成しています。<br /><br />
-                                        引数に幅と高さをそれぞれセットする事でウィンドウ領域のサイズを決める事が出来ます。<b>window_width</b>と<b>window_height</b>の数値に合わせてサイズが変化するようになっているので、良かったら話を聞きながらでも弄ったりしてみてください:-)<br /><br />
+                                        Coreクラスでは引数に幅と高さをそれぞれセットする事でウィンドウ領域のサイズを決める事が出来ます。<br />
+                                        <b>window_width</b>と<b>window_height</b>の数値に合わせてサイズが変化するようになっているので、良かったら話を聞きながらでも弄ったりしてみてください:-)<br /><br />
                                         クラスとは用途を絞った機能群を包括した器のようなもので、Coreクラスにはゲームの進行全般を管理する為の機能がまとめられています。<br />
                                         クラスというのがいったいなんなのかピンと来ない人は<b>親子丼</b>をイメージしてみましょう。
                                     </p>
@@ -657,9 +696,9 @@ window.onload = function(){
                                     <h4>~/src/edit/main.js</h4>
                                     <pre class="prettyprint lang-js linenums:8">
 // CoreObjectの定義
-var core = new Core(window_width,window_height);
-core.fps = 30.0;
-core.preload('./libs/images/chara1.png', 
+var game = new Core(window_width,window_height);
+game.fps = 30.0;
+game.preload('./libs/images/chara1.png', 
              './libs/images/background.png',
              './libs/images/pipe.png');
 
@@ -670,9 +709,11 @@ core.preload('./libs/images/chara1.png',
                                 <div class="exam_description">
                                     <p>
                                         Coreクラスのインスタンスを生成したら、さらに設定を行っていきます。ソースコードの10行目では<b>FPS</b>の設定を行っています。<br />
-                                        FPSは一秒あたりに処理される映像数を表しています。core.fpsには<b>30.0</b>を代入しているので、この例では一秒あたりに30回分のループが行われる事を意味しています。<br /><br />
+                                        FPSは一秒あたりに処理されるフレーム数のことを表しています。game.fpsには<b>30.0</b>を代入しているので、この例では一秒あたりに30回分のフレーム経過・ループが行われる事を意味しています。<br /><br />
                                         パラパラ漫画に例えると、一秒間に30ページずつめくれていくイメージで考えていただけると大丈夫です:-)<br /><br />
-                                        11行目では<b>preload</b>と言う命令を呼び出して、事前に読み込む画像をセットしています。今回は事前に利用する画像を全てセットしているので、ここに対して手を加えていく事はありません。もし、ご自身で画像を追加したいと思った時にはこちらも忘れずに追加するようにしておきましょう:-)
+                                        11行目では<b>preload</b>と言う命令を呼び出して、事前に読み込む画像をセットしています。<br />
+                                        今回は事前に利用する画像を全てセットしているので、ここに対して手を加えていく事はありません。<br />
+                                        もし、ご自身でいろいろ画像を追加したいと思った時にはこちらも忘れずに追加するようにしておきましょう:-)
                                     </p>
                                 </div>
                             </div>
@@ -686,39 +727,38 @@ core.preload('./libs/images/chara1.png',
                                     <pre class="prettyprint lang-js linenums:13">
 ... 途中省略 ...
 
-core.onload = function(){
-    /* 
-        背景のスクロール処理(非表示にしています...)
+game.onload = function(){
+    /*
+        背景の描画処理
     */
 
     // クマ (プレイヤーの定義)
     var size   = 32;
     var bear   = new Sprite(size,size);
-    bear.image = core.assets['./libs/images/chara1.png'];   // 描画する画像を指定する
+    bear.image = this.assets['./libs/images/chara1.png'];   // 描画する画像を指定する
     bear.x     = (window_width/2)-(size/2);                 // 画像の描画位置の指定(x軸)
     bear.y     = (window_height/2)-(size/2);                // 画像の描画位置の指定(軸)
     bear.frame = 0;                                         // 描画領域の範囲を指定する
-    core.rootScene.addChild(bear);                          // クマを画面上に描画する
+    game.rootScene.addChild(bear);                          // クマを画面上に描画する
 
-    // メインループ（この中に処理を書いていきます)
-    core.on('enterframe', function(){
-
+    // メインループ
+    game.on('enterframe', function(){
+        //　主要なプログラムはこの中に書いていきます
     });
 }
 
-core.start();
-
-... 途中省略 ...
+game.start();
 </pre>
                                 </div>
 
                                 <div class="exam_description">
                                     <p>
-                                        ソースコードの<b>16行目</b>から無名関数内にゲーム中の処理を定義しています。この辺りからの内容がメイン部分の処理になってきます。<br />
-                                        定義した無名関数を<b>core.onload</b>に代入する事で代入された関数の処理に沿ってゲームが動きます。<br /><br />
+                                        ソースコードの<b>15行目</b>から無名関数内にゲーム中の処理を定義しています。<br />
+                                        ここからの内容がメイン部分の処理になってきます。<br />
+                                        定義した無名関数を<b>game.onload</b>に代入する事で代入された関数の処理に沿ってゲームが動くようになります。<br /><br />
 
-                                        <b>31行目</b>からはメインループの定義を書いています。また、メインループより前にはゲーム上で利用される画像の描画を行っています。<br />
-                                        波括弧の範囲内に書いたプログラムは、ページを読み込んだ後もくり返しくり返し実行されます。この中でユーザーのキー入力などはを受け取りながら、事前に定義した決められた処理を決められた通りにくり返して行くわけです:-)<br /><br />
+                                        上記のコード表では<b>30行目</b>となっていますが、そこからはメインループの定義を書いています。<br />また、メインループより前にはゲーム上で利用される画像の描画を行っています。<br /><br />
+                                        波括弧の範囲内に書いたプログラムは、ページを読み込んだ後もくり返しくり返し実行されます。<br />この中でユーザーのキー入力などはを受け取りながら、事前に定義した決められた処理を決められた通りにくり返して行くわけです:-)<br /><br />
 
                                         とは言っても、ここまでの内容だけではいまいちピンと来ない部分もあるかもしれません。<br />
                                         そこで、次の項目では画像の描画についても取り上げつつ、実際にクマを操作するプログラムを作ってより詳しく内容を見ていきます。
@@ -733,7 +773,7 @@ core.start();
 
                     <div class="section_block">
                         <div class="page-header">
-                            <h2 id="3_0">3. クマを表示して動かせるようにしてみよう</h2>
+                            <h2 id="3_0">3章. クマを表示して動かせるようにしてみよう</h2>
                         </div>
 
                         <!-- exam_content -->
@@ -762,16 +802,17 @@ core.start();
 
                                 <div class="exam_description">
                                     <h4>~/src/edit/main.js</h4>
-                                    <pre class="prettyprint lang-js linenums:51">
+                                    <pre class="prettyprint lang-js linenums:48">
 ... 途中省略 ...
     // クマ (プレイヤーの定義)
     var size   = 32;
     var bear   = new Sprite(size,size);
-    bear.image = core.assets['./libs/images/chara1.png'];   // 描画する画像を指定する
+    bear.image = this.assets['./libs/images/chara1.png'];   // 描画する画像を指定する
     bear.x     = (window_width/2)-(size/2);                 // 画像の描画位置の指定(x軸)
     bear.y     = (window_height/2)-(size/2);                // 画像の描画位置の指定(軸)
     bear.frame = 0;                                         // 描画領域の範囲を指定する
-    core.rootScene.addChild(bear);                          // クマを画面上に描画する
+    game.rootScene.addChild(bear);                          // クマを画面上に描画する
+
 ... 途中省略 ...
 </pre>
                                 </div>
@@ -780,7 +821,7 @@ core.start();
                                     <p>
                                         Spriteクラスをインスタンス化する時に、引数に描画する画像の幅と高さをそれぞれセットする事ができます。<br />
                                         こうする事で<b>スプライト</b>を生成する事が出来ます。<b>スプライト</b>はイメージ的には額のようなもので、実際の画像から描画領域を決定してはめこまれた物が画面上に表示されるようになっています。<br />ここでは描画を行う前に画像の指定と、それをどこに描画するのかx軸とy軸それぞれに指定しています。<br />
-                                        実際に<b>16行目</b>で指定している画像chara1.pngは以下のような画像になっています。
+                                        実際に<b>53行目</b>で指定している画像chara1.pngは以下のような画像になっています。
                                     </p>
                                 </div>
 
@@ -802,8 +843,8 @@ core.start();
                                     <p>
                                         このように複数の画像を1つの画像にタイル状に取りまとめたものを<b>スプライトシート</b>と言います。
                                         個別に画像を準備する場合と比べた場合、役割に合わせて画像をまとめる事で管理が行いやすく、画像の容量を抑える事が出来るメリットがあります。<br /><br />
-                                        enchant.jsではこのようなスプライトシートを手軽に使う為の機能が提供されています。<b>19行目</b>の<b>bear.frame</b>がそうです。<br /><br />
-                                        明示的に指定していない場合、ないしは0を代入している場合はスプライトシートの左上を基準にインスタンス化した際に引数で渡した画像の幅と高さをもとにしてスプライトを生成します。試しにサンプルのプログラムで<b>bare.frame</b>に代入する値を0から1へとじゅんぐり上げていくと赤枠の描画領域から、右に1つずつずれて表示されます。もし良かったら聞きながらでも構いませんので、いろいろと数値をいじってどうなるか試してみてください:-)
+                                        enchant.jsではこのようなスプライトシートを手軽に使う為の機能が提供されています。<b>56行目</b>の<b>bear.frame</b>がそうです。<br /><br />
+                                        明示的に指定していない場合、ないしは0を代入している場合はスプライトシートの左上を基準にインスタンス化した際に引数で渡した画像の幅と高さをもとにしてスプライトを生成します。試しにサンプルのプログラムで<b>bear.frame</b>に代入する値を0から1へとじゅんぐり上げていくと赤枠の描画領域から、右に1つずつずれて表示されます。もし良かったら聞きながらでも構いませんので、いろいろと数値をいじってどうなるか試してみてください:-)
                                     </p>
                                 </div>
                             </div>
@@ -857,40 +898,40 @@ if(value==1){
                                 <div class="exam_description">
                                     <h4>~/Chapter/Chapter3/inputs/main.js</h4>
                                     <pre class="prettyprint lang-js linenums">
-enchant();  // enchant.jsの利用宣言　必ず最初に宣言する
-
 window.onload = function(){
+    enchant();  // enchant.jsの利用宣言　必ず最初に宣言する
+
     var window_width  = 320;    // ゲーム領域の幅
     var window_height = 568;    // ゲーム領域の高さ
 
     // CoreObjectの定義
-    var core = new Core(window_width,window_height);
-    core.fps = 30.0;
+    var game = new Core(window_width,window_height);
+    game.fps = 30.0;
 
-    core.onload = function(){
+    game.onload = function(){
         // メインループ（この中に処理を書いていきます)
-        core.on('enterframe', function(){
-            if(core.input.up){
+        game.on('enterframe', function(){
+            if(game.input.up){
                 console.log('方向キーの上キーが押されました');
-            }else if (core.input.down){
+            }else if (game.input.down){
                 console.log('方向キーの下キーが押されました');
-            }else if (core.input.left){
+            }else if (game.input.left){
                 console.log('方向キーの左キーが押されました');
-            }else if (core.input.right){
+            }else if (game.input.right){
                 console.log('方向キーの右キーが押されました');
             }
         });
     }
 
-    core.start();
+    game.start();
 };
 </pre>
                                 </div>
 
                                 <div class="exam_description">
                                     <p>
-                                        <a href="../Chapter/Chapter3/inputs/index.html" target="_blank">ブラウザから確認すると</a>、画面上ではこれと言って何も表示されていませんが、上下左右の方向キーのいずれかを入力すると、対応する形が出力される事を確認する事ができます。<br />
-                                        <b>enchant.js</b>はCoreクラスの<b>input</b>がゲームに対する入力操作を管理しており、<b>if文</b>を使ってこのような形で条件式としてメインループ内で定義することによってユーザーのキー入力に対する処理を実装する事が出来ます。
+                                        <a href="../Chapter/Chapter3/inputs/index.html" target="_blank">ブラウザから確認すると</a>、画面上ではこれと言って何も表示されていませんが、上下左右の方向キーのいずれかを入力すると、対応するログがコンソール上に出力される事を確認する事ができます。<br />
+                                        <b>enchant.js</b>はCoreクラスの<b>input</b>でゲームに対する入力操作を管理しており、<b>if文</b>を使ってこのような形で条件式としてメインループ内で定義することによってユーザーのキー入力に対する処理を実装する事が出来ます。
                                     </p>
                                 </div>
                             </div>
@@ -929,7 +970,7 @@ window.onload = function(){
 
                     <div class="section_block">
                         <div class="page-header">
-                            <h2 id="4_0">4. 障害物を設置して、衝突判定をつけてみよう</h2>
+                            <h2 id="4_0">4章. 障害物を設置して、衝突判定をつけてみよう</h2>
                         </div>
 
                         <!-- exam_content -->
@@ -1015,18 +1056,18 @@ window.onload = function(){
 
 // 障害物の定義
 var pipe   = new Sprite(64, 568);
-pipe.image = core.assets['./libs/images/pipe.png'];
+pipe.image = game.assets['./libs/images/pipe.png'];
 pipe.x     = window_width-128;
 pipe.y     = 100;
 pipe.frame = 0;
-core.rootScene.addChild(bear);  // クマを画面上に描画する
-core.rootScene.addChild(pipe);  // 障害物を画面上に描画する
+game.rootScene.addChild(bear);  // クマを画面上に描画する
+game.rootScene.addChild(pipe);  // 障害物を画面上に描画する
 
 // メインループ（この中に処理を書いていきます)
-core.on('enterframe', function(){
+game.on('enterframe', function(){
     // クマと土管が衝突したらif文の中へ
     if(bear.intersect(pipe)){
-        core.stop();
+        game.stop();
         window.alert("GAME OVER...");
     }
 
@@ -1110,7 +1151,7 @@ core.on('enterframe', function(){
 
                     <div class="section_block">
                         <div class="page-header">
-                            <h2 id="5_0">5. よりゲームっぽくしてみよう</h2>
+                            <h2 id="5_0">5章. よりゲームっぽくしてみよう</h2>
                         </div>
 
                         <!-- exam_content -->
@@ -1205,14 +1246,14 @@ core.on('enterframe', function(){
                                     <pre class="prettyprint lang-js linenums:10">
 ... 途中省略 ...
 
-core.onload = function(){
+game.onload = function(){
     // 障害物の定義
     var pipe   = new Sprite(64, window_height);
-    pipe.image = core.assets['./libs/images/pipe.png'];
+    pipe.image = game.assets['./libs/images/pipe.png'];
     pipe.x     = window_width;
     pipe.y     = 100;
     pipe.frame = 0;
-    core.rootScene.addChild(pipe);  // 障害物を画面上に描画する
+    game.rootScene.addChild(pipe);  // 障害物を画面上に描画する
 
     // 画面全体とは別にスプライトに対しても毎フレームごとの動きを定義できる
     pipe.on('enterframe', function(){
@@ -1225,7 +1266,7 @@ core.onload = function(){
 
                                 <div class="exam_description">
                                     <p>
-                                        これまでは、ゲームの進行全般を管理しているCoreクラスで提供されている<b>on</b>メソッドを使って、これまでは毎フレームごとに繰り返し実行される処理を定義してきました。実は、同じようにSpriteクラスからでもonメソッドを呼び出す事ができます。<br />
+                                        これまでは、ゲームの進行全般を管理しているCoreクラスで提供されている<b>on</b>メソッドを使って、毎フレームごとに繰り返し実行される処理を定義してきました。実は、Coreクラスからだけではなく同じようにSpriteクラスからでもonメソッドを呼び出す事ができます。<br />
                                         <b>21行目から24行目</b>がその処理となっていて。こうする事で、Coreクラスで定義しているメインループとは別に描画しているスプライトに対しても毎フレームごとに実行される処理を定義する事が出来るようになります！
                                     </p>
                                 </div>
@@ -1262,7 +1303,8 @@ core.onload = function(){
 
                                 <div class="exam_description">
                                     <p>
-                                        動かしてみると、一定の間隔で土管が右から左に不規則な高さで流れていくのを確認する事が出来ます。このような仕組みはゲームでは結構多くて、作り方もいろいろあるかと思うのですが今回は一例として経過フレーム数をもとにして、障害物となる土管を描画していく方法について紹介したいと思います。
+                                        動かしてみると、一定の間隔で土管が右から左に不規則な高さで流れていくのを確認する事が出来ます。<br />
+                                        このような仕組みはゲームでは結構多くて、作り方もいろいろあるかと思うのですが今回は一例として経過フレーム数をもとにして、障害物となる土管を描画していく方法について紹介したいと思います。
                                     </p>
                                 </div>
 
@@ -1279,24 +1321,24 @@ core.onload = function(){
 ... 途中省略 ...
 
 // 60フレームおきに、土管を表示する
-if(core.frame%60==0){
+if(game.frame%60==0){
     // 障害物の定義
     var pipe_width  = 64;
     var pipe_height = 568;
 
     var pipe        = new Sprite(pipe_width, pipe_height);
-    pipe.image      = core.assets['./libs/images/pipe.png'];
+    pipe.image      = game.assets['./libs/images/pipe.png'];
     pipe.x          = window_width;
-    pipe.y          = (pipe_height/2)-Math.floor(Math.random()*150);
+    pipe.y          = (pipe_height/2)-Math.floor(Math.random() * 150);
     pipe.frame      = 0;
-    core.rootScene.addChild(pipe);  // 障害物を画面上に描画する
+    game.rootScene.addChild(pipe);  // 障害物を画面上に描画する
 
     pipe.on('enterframe', function(){
         this.x -= 2;
 
-        // クマと土管が衝突したらゲームを終了する
+        // クマと土管が衝突したらif文の中へ
         if(bear.intersect(this)){
-            core.stop();
+            game.stop();
             window.alert("GAME OVER...");
         }
     });
@@ -1339,6 +1381,7 @@ if(core.frame%60==0){
                                     <h5>おだいもく</h5>
                                     <ul class="procedure">
                                         <li>処理はメインループの中で定義していく</li>
+                                        <li>自身のキャラクターとなるクマの移動範囲を上方向と下方向のみに修正する</li>
                                         <li>60フレームおきに処理を動かす為の条件式を追加する</li>
                                         <li>60フレームおきに上下それぞれに潜り抜ける隙間が有る土管を描画し、右から左へとフレーム毎に移動させる</li>
                                         <li>if文と組み合わせて「クマと土管が衝突した場合」を条件にした衝突判定を作る</li>
@@ -1469,6 +1512,34 @@ window.onload = function(){
                         <!-- exam_content -->
                     </div>
                     <!-- section -->
+
+                    <div class="section_block">
+                        <div class="page-header">
+                            <h2 id="6_0">さいごに</h2>
+                        </div>
+
+                        <!-- exam_content -->
+                        <div class="exam_content">
+                            <a href="javascript:smoothScroll('my_top');">
+                                ↑トップへ戻る
+                            </a>
+
+                            <div class="exam_description">
+                                <p>
+                                    お疲れ様でした、いかがでしたでしょうか？<br />
+                                    僕達が普段遊んでいるゲームがどのようにして動いているのか、ちょっとでも雰囲気が掴めたなら幸いです。<br /><br />
+                                    ゲームエンジンも今回はenchant.jsを採用しましたが、他にも沢山のものがあります。<br />
+                                    enchant.jsを掘り下げてみるのも良いですし、他にもどういったものがあるのか見てみるのも良いかもしれません。<br />
+                                    エンジンが変わっても、言語が変わっても今回やった内容や見方なんかは使っていける部分もある・・・と良いなと思います。<br />
+                                    自分に合ったものを見つけて、仲間を見つけて。ああだこうだ言いながら「僕が考えたさいきょうのげーむ」を作ってみるのも良いかもしれません。もちろん一人でやるのも良いですが、誰かとやるのもそれはそれでまた別の楽しさがあります。<br />
+                                    また、次も機会があれば今度はゲームエンジンを変えたりして3Dなんかも・・・。<br />
+                                    なんて思いつつ、ありがとうございました！<br /><br />
+
+                                    @eccyun
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
